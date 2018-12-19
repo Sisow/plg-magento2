@@ -1,0 +1,81 @@
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label data-bind="attr: {'for': getCode()}" class="label">
+			<!-- ko if: logoInCheckout() -->
+				<img height="50px" width="50px" style="vertical-align: middle;" data-bind="attr: { src: getLogo() }" />
+			<!-- /ko -->
+			<span data-bind="text: getTitle()"></span>
+		</label>
+    </div>
+
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+		<p>
+			<img height="125px" width="125px" data-bind="attr: { src: getLogo() }" />
+		</p>
+		<p>
+			Mit giropay zahlen Sie einfach, schnell und sicher im Online-Banking Ihrer teilnehmenden Bank oder Sparkasse. Sie werden direkt zum Online-Banking Ihrer Bank weitergeleitet, wo Sie die &Uuml;berweisung durch Eingabe von PIN und TAN freigeben.
+		</p>
+		<form class="form form-purchase-order" id="form-sisowgiropay" data-role="form-sisowgiropay">			
+			<fieldset class="fieldset payment method" data-bind='attr: {id: "payment_form_" + getCode()}'>
+                <div class="field field-number required">
+                    <label for="po_number" class="label">
+                        <span><!-- ko i18n: 'Ihre Bank'--><!-- /ko --></span>
+                    </label>
+                    <div class="control">						
+						<input type="text"
+                               id="sisow_bic"
+                               name="payment[sisow_bic]"
+                               data-validate="{required:true}"
+                               data-bind='
+                                attr: {title: $t("Purchase Order Number")},
+                                value: bic'
+                               class="input-text" 
+							   autocomplete="off" 
+							   onkeyup="girocheckout_widget(this, event, 'bic', '0')"/>
+                    </div>
+                </div>
+            </fieldset>
+		</form>
+		
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar" id="review-buttons-container">
+            <div class="primary">
+                <button class="action primary checkout"
+                        type="submit"
+                        data-bind="
+                        click: placeOrder,
+                        attr: {title: $t('Place Order')},
+                        enable: (getCode() == isChecked()),
+                        css: {disabled: !isPlaceOrderActionAllowed()}
+                        "
+                        data-role="review-save">
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+        

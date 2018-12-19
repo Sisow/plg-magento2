@@ -1,0 +1,185 @@
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label data-bind="attr: {'for': getCode()}" class="label">
+			<!-- ko if: logoInCheckout() -->
+				<img height="50px" width="50px" style="vertical-align: middle;" data-bind="attr: { src: getLogo() }" />
+			<!-- /ko -->
+            <span data-bind="text: getTitle()"></span>
+        </label>
+    </div>
+
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+		<!-- ko if: logoInCheckout() == false -->
+			<p>
+				<img width="125px" alt="Logo Afterpay" data-bind="attr: { src: getLogo() }" />
+			</p>
+		<!-- /ko -->
+        <form class="form form-purchase-order" id="form-sisowafterpay" data-role="form-sisowafterpay">	
+            <fieldset class="fieldset payment method" data-bind='attr: {id: "payment_form_" + getCode()}'>
+                <div class="field field-number required">
+					<label for="sisow_gender" class="label" style="float: left;">
+                        <span>Geslacht</span>
+                    </label>
+                    <div class="control">
+                        <select type="text"
+                               id="sisow_gender"
+                               name="payment[sisow_gender]"
+                               data-validate="{required:true}"
+                               data-bind='
+                                value: gender'
+                               class="input-text">
+						   <option value="">Maak uw keuze...</option>
+						   <option value="m">Man</option>
+						   <option value="f">Vrouw</option>
+						</select>
+                    </div>
+				</div>
+				<div class="field field-number required">
+					<label for="sisow_dag" class="label" style="float: left;">
+                        <span>Geboortedatum</span>
+                    </label>
+					<div class="control">
+                        <div class="fields group group-3">
+							<div class="field no-label day iosc-break">
+                                <div class="control">
+                                    <select  name="payment[sisow_dag]" class="select sisow_dag"
+										data-validate="{required:true}"
+                                        data-bind="enable: true,
+                                        value: day">
+										<option value="">Dag</option>
+										<option value="01">01</option>
+										<option value="02">02</option>
+										<option value="03">03</option>
+										<option value="04">04</option>
+										<option value="05">05</option>
+										<option value="06">06</option>
+										<option value="07">07</option>
+										<option value="08">08</option>
+										<option value="09">09</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+										<option value="24">24</option>
+										<option value="25">25</option>
+										<option value="26">26</option>
+										<option value="27">27</option>
+										<option value="28">28</option>
+										<option value="29">29</option>
+										<option value="30">30</option>
+										<option value="31">31</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="field no-label month">
+                                <div class="control">
+                                    <select  name="payment[cc_exp_month]" class="select month"
+										data-validate="{required:true}"
+                                        data-bind="enable: true,
+                                        value: month">
+										<option value="">Maand</option>
+										<option value="01">Januari</option>
+										<option value="02">februari</option>
+										<option value="03">Maart</option>
+										<option value="04">April</option>
+										<option value="05">Mei</option>
+										<option value="06">Juni</option>
+										<option value="07">Juli</option>
+										<option value="08">Augustus</option>
+										<option value="09">September</option>
+										<option value="10">Oktober</option>
+										<option value="11">November</option>
+										<option value="12">December</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="field no-label year">
+                                <div class="control">
+                                    <select name="payment[cc_exp_year]" class="select year"
+										data-validate="{required:true}"
+                                        data-bind="enable: true,
+                                        options: getYears(),
+                                        optionsValue: 'value',
+                                        optionsText: 'year',
+                                        optionsCaption: $t('Year'),
+                                        value: year">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				
+				<!-- ko if: isB2BPayment() -->
+					<div class="field required">
+						<label for="afterpay_coc" class="label" style="float: left;">
+							KVK nummer
+						</label>
+						<div class="control">
+							<input type="text" id="afterpay_coc" name="payment[coc]" class="input-text required" data-bind="value: coc">
+						</div>
+					</div>
+				<!--/ko-->
+				
+				<div class="field">
+					<div class="control">
+						<input type="checkbox" id="afterpay_terms" name="payment[afterpay_terms]" class="checkbox required">
+						<label class="label radio-inline">
+							Ik ga akkoord met de <a data-bind="attr: { href: getAfterpayTerms() }" target="_blank">betalingsvoorwaarden</a> van Afterpay
+						</label>
+					</div>
+				</div>
+
+            </fieldset>
+        </form>
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar" id="review-buttons-container">
+            <div class="primary">
+                <button class="action primary checkout"
+                        type="submit"
+                        data-bind="
+                        click: placeOrder,
+                        attr: {title: $t('Place Order')},
+                        enable: (getCode() == isChecked()),
+                        css: {disabled: !isPlaceOrderActionAllowed()}
+                        "
+                        data-role="review-save">
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+        

@@ -1,0 +1,1319 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="sisow_payment" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Sisow</label>
+				<field id="merchantid" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Merchant ID</label>
+					<config_path>sisow/general/merchantid</config_path>
+				</field>
+				<field id="merchantkey" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Merchant Key</label>
+					<config_path>sisow/general/merchantkey</config_path>
+				</field>
+				<field id="shopid" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Shop ID</label>
+					<config_path>sisow/general/shopid</config_path>
+				</field>
+				<field id="order_status_pending" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Pending Order Status</label>
+					<source_model>Sisow\Payment\Model\Config\Source\Order\Status\PendingPayment</source_model>
+					<config_path>sisow/general/pendingpayment</config_path>
+				</field>
+				<field id="order_status_success" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Payment Success Order Status</label>
+					<source_model>Sisow\Payment\Model\Config\Source\Order\Status\SuccessPayment</source_model>
+					<config_path>sisow/general/successpayment</config_path>
+				</field>
+				<field id="order_status_reservation" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Payment Reservation Order Status</label>
+					<source_model>Sisow\Payment\Model\Config\Source\Order\Status\PendingPayment</source_model>
+					<config_path>sisow/general/reservationpayment</config_path>
+				</field>
+				<field id="checkoutlogo" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Logo in checkout</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<config_path>payment/general/checkoutlogo</config_path>
+				</field>
+				<field id="tax_class" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Payment Fee Tax</label>
+					<source_model>Sisow\Payment\Model\Config\Source\Tax\Taxclass</source_model>
+					<config_path>sisow/general/feetaxclass</config_path>
+				</field>
+				<field id="displayfee" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Display Fee Inc Tax</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<config_path>payment/general/displayfeeinctax</config_path>
+				</field>
+				<group id="sisow_ideal" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>iDEAL</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_ideal/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_ideal/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_ideal/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_ideal/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_ideal/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_ideal/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_ideal/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_ideal/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_ideal/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_ideal/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_idealqr" translate="label" type="text" sortOrder="111" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>iDEAL QR</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_idealqr/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_idealqr/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_idealqr/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_idealqr/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_idealqr/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_idealqr/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_idealqr/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_idealqr/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_idealqr/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_idealqr/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_bunq" translate="label" type="text" sortOrder="112" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>bunq</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_bunq/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_bunq/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_bunq/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_bunq/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_bunq/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_bunq/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_bunq/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_bunq/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_bunq/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_bunq/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_mistercash" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Bancontact</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_mistercash/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_mistercash/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_mistercash/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_mistercash/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_mistercash/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_mistercash/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_mistercash/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_mistercash/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_mistercash/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_mistercash/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_belfius" translate="label" type="text" sortOrder="123" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Belfius Pay Button</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_belfius/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_belfius/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_belfius/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_belfius/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_belfius/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_belfius/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_belfius/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_belfius/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_belfius/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_belfius/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_homepay" translate="label" type="text" sortOrder="125" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>ING Home'Pay</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_homepay/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_homepay/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_homepay/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_homepay/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_homepay/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_homepay/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_homepay/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_homepay/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_homepay/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_homepay/paymentfee</config_path>
+					</field>
+				</group>
+				
+				<group id="sisow_cbc" translate="label" type="text" sortOrder="127" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>CBC</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_cbc/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_cbc/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_cbc/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_cbc/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_cbc/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_cbc/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_cbc/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_cbc/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_cbc/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_cbc/paymentfee</config_path>
+					</field>
+				</group>
+				
+				<group id="sisow_kbc" translate="label" type="text" sortOrder="128" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>KBC</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_kbc/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_kbc/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_kbc/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_kbc/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_kbc/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_kbc/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_kbc/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_kbc/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_kbc/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_kbc/paymentfee</config_path>
+					</field>
+				</group>
+				
+				<group id="sisow_sofort" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>SofortBanking</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_sofort/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_sofort/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_sofort/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_sofort/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_sofort/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_sofort/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_sofort/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_sofort/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_sofort/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_sofort/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_giropay" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Giropay</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_giropay/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_giropay/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_giropay/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_giropay/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_giropay/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_giropay/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_giropay/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_giropay/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_giropay/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_giropay/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_eps" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>EPS</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_eps/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_eps/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_eps/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_eps/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_eps/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_eps/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_eps/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_eps/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_eps/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_eps/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_overboeking" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Overboeking</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_overboeking/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_overboeking/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_overboeking/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_overboeking/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_overboeking/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_overboeking/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_overboeking/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_overboeking/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_overboeking/max_order_total</config_path>
+					</field>
+					<field id="include" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Include iDEAL link</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_overboeking/include</config_path>
+					</field>
+					<field id="days" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Days valid</label>
+						<comment>Number of days an banktransfer can be made before it Cancelled</comment>
+						<config_path>payment/sisow_overboeking/days</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_overboeking/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_paypalec" translate="label" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>PayPal</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_paypalec/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_paypalec/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_paypalec/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_paypalec/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_paypalec/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_paypalec/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_paypalec/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_paypalec/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_paypalec/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_paypalec/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_webshop" translate="label" type="text" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Webshop Giftcard</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_webshop/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_webshop/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_webshop/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_webshop/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_webshop/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_webshop/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_webshop/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_webshop/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_webshop/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_webshop/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_vvv" translate="label" type="text" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>VVV Giftcard</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_vvv/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_vvv/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_vvv/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_vvv/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_vvv/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_vvv/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_vvv/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_vvv/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_vvv/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_vvv/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_maestro" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Maestro</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_maestro/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_maestro/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_maestro/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_maestro/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_maestro/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_maestro/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_maestro/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_maestro/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_maestro/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_maestro/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_mastercard" translate="label" type="text" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Mastercard</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_mastercard/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_mastercard/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_mastercard/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_mastercard/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_mastercard/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_mastercard/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_mastercard/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_mastercard/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_mastercard/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_mastercard/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_vpay" translate="label" type="text" sortOrder="195" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>V PAY</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_vpay/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_vpay/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_vpay/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_vpay/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_vpay/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_vpay/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_vpay/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_vpay/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_vpay/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_vpay/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_visa" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Visa</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_visa/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_visa/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_visa/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_visa/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_visa/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_visa/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_visa/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_visa/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_visa/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_visa/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_afterpay" translate="label" type="text" sortOrder="230" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Afterpay</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_afterpay/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_afterpay/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_afterpay/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_afterpay/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_afterpay/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_afterpay/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_afterpay/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_afterpay/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_afterpay/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_afterpay/paymentfee</config_path>
+					</field>
+					<field id="b2b" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Offer B2B</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_afterpay/b2b</config_path>
+					</field>
+					<field id="createinvoice" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Create AfterPay invoice</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_afterpay/createinvoice</config_path>
+					</field>
+				</group>
+				<group id="sisow_billink" translate="label" type="text" sortOrder="235" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Billink</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_billink/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_billink/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_billink/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_billink/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_billink/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_billink/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_billink/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_billink/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_billink/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_billink/paymentfee</config_path>
+					</field>
+					<field id="b2b" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Offer B2B</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_billink/b2b</config_path>
+					</field>
+					<field id="createinvoice" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Create Billink invoice</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_billink/createinvoice</config_path>
+					</field>
+				</group>
+				<group id="sisow_focum" translate="label" type="text" sortOrder="240" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Focum AchterafBetalen</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_focum/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_focum/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_focum/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_focum/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_focum/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_focum/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_focum/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_focum/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_focum/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_focum/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_capayable" translate="label" type="text" sortOrder="245" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Capayable gespreid betalen</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_capayable/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_capayable/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_capayable/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_capayable/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_capayable/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_capayable/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_capayable/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_capayable/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_capayable/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_capayable/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_klarna" translate="label" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Klarna Factuur</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_klarna/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_klarna/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_klarna/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_klarna/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_klarna/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_klarna/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_klarna/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_klarna/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_klarna/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_klarna/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_ebill" translate="label" type="text" sortOrder="10000" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Ebill</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_ebill/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_ebill/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_ebill/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_ebill/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_ebill/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_ebill/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_ebill/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_ebill/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_ebill/max_order_total</config_path>
+					</field>
+					<field id="include" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Include iDEAL link</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_ebill/include</config_path>
+					</field>
+					<field id="days" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Days valid</label>
+						<comment>Number of days an banktransfer can be made before it Cancelled</comment>
+						<config_path>payment/sisow_ebill/days</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_ebill/paymentfee</config_path>
+					</field>
+				</group>
+            </group>
+        </section>
+    </system>
+</config>

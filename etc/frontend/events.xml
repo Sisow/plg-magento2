@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/Event/etc/events.xsd">
+    <event name="payment_method_assign_data_sisow_eps">
+        <observer name="sisow_eps_gateway_data_assign" instance="Sisow\Payment\Observer\SisowEpsAssignObserver" />
+    </event>
+	<event name="payment_method_assign_data_sisow_focum">
+        <observer name="sisow_focum_gateway_data_assign" instance="Sisow\Payment\Observer\SisowFocumAssignObserver" />
+    </event>
+	<event name="payment_method_assign_data_sisow_giropay">
+        <observer name="sisow_giropay_gateway_data_assign" instance="Sisow\Payment\Observer\SisowGiropayAssignObserver" />
+    </event>
+	<event name="payment_method_assign_data_sisow_ideal">
+        <observer name="sisow_ideal_gateway_data_assign" instance="Sisow\Payment\Observer\SisowIdealAssignObserver" />
+    </event>
+	<event name="payment_method_assign_data_sisow_afterpay">
+        <observer name="sisow_afterpay_gateway_data_assign" instance="Sisow\Payment\Observer\SisowAfterpayAssignObserver" />
+    </event>
+	<event name="payment_method_assign_data_sisow_klarna">
+        <observer name="sisow_klarna_gateway_data_assign" instance="Sisow\Payment\Observer\SisowKlarnaAssignObserver" />
+    </event>
+	<event name="payment_method_assign_data_sisow_billink">
+        <observer name="sisow_billink_gateway_data_assign" instance="Sisow\Payment\Observer\SisowBillinkAssignObserver" />
+    </event>
+</config>

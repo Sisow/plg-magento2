@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
+    <default>
+        <payment>
+			<sisow_ideal>
+				<model>Sisow\Payment\Model\Method\Ideal</model>
+                <title>iDEAL</title>
+            </sisow_ideal>
+			<sisow_idealqr>
+				<model>Sisow\Payment\Model\Method\Idealqr</model>
+                <title>iDEAL QR</title>
+            </sisow_idealqr>
+			<sisow_bunq>
+				<model>Sisow\Payment\Model\Method\Bunq</model>
+                <title>bunq</title>
+            </sisow_bunq>
+			<sisow_mistercash>
+				<model>Sisow\Payment\Model\Method\Mistercash</model>
+                <title>MisterCash</title>
+            </sisow_mistercash>
+			<sisow_visa>
+				<model>Sisow\Payment\Model\Method\Visa</model>
+                <title>Visa</title>
+            </sisow_visa>
+			<sisow_cbc>
+				<model>Sisow\Payment\Model\Method\Cbc</model>
+                <title>Cbc</title>
+            </sisow_cbc>
+			<sisow_kbc>
+				<model>Sisow\Payment\Model\Method\Kbc</model>
+                <title>Kbc</title>
+            </sisow_kbc>
+			<sisow_maestro>
+				<model>Sisow\Payment\Model\Method\Maestro</model>
+                <title>Maestro</title>
+            </sisow_maestro>
+			<sisow_vvv>
+				<model>Sisow\Payment\Model\Method\Vvv</model>
+                <title>VVV Giftcard</title>
+            </sisow_vvv>
+			<sisow_mastercard>
+				<model>Sisow\Payment\Model\Method\Mastercard</model>
+                <title>Mastercard</title>
+            </sisow_mastercard>
+			<sisow_overboeking>
+				<model>Sisow\Payment\Model\Method\Overboeking</model>
+                <title>Overboeking</title>
+            </sisow_overboeking>
+			<sisow_sofort>
+				<model>Sisow\Payment\Model\Method\Sofort</model>
+                <title>SofortBanking</title>
+            </sisow_sofort>
+			<sisow_paypalec>
+				<model>Sisow\Payment\Model\Method\Paypalec</model>
+                <title>PayPal</title>
+            </sisow_paypalec>
+			<sisow_webshop>
+				<model>Sisow\Payment\Model\Method\Webshop</model>
+                <title>Webshop Giftcard</title>
+            </sisow_webshop>
+			<sisow_giropay>
+				<model>Sisow\Payment\Model\Method\Giropay</model>
+                <title>Giropay</title>
+            </sisow_giropay>
+			<sisow_eps>
+				<model>Sisow\Payment\Model\Method\Eps</model>
+                <title>EPS</title>
+            </sisow_eps>
+			<sisow_focum>
+				<model>Sisow\Payment\Model\Method\Focum</model>
+                <title>Focum AchterafBetalen</title>
+            </sisow_focum>
+			<sisow_afterpay>
+				<model>Sisow\Payment\Model\Method\Afterpay</model>
+                <title>Afterpay</title>
+				<b2b>no</b2b>
+            </sisow_afterpay>
+			<sisow_billink>
+				<model>Sisow\Payment\Model\Method\Billink</model>
+                <title>Billink</title>
+				<b2b>no</b2b>
+            </sisow_billink>
+			<sisow_klarna>
+				<model>Sisow\Payment\Model\Method\Klarna</model>
+                <title>Achteraf Betalen</title>
+            </sisow_klarna>
+			<sisow_belfius>
+				<model>Sisow\Payment\Model\Method\Belfius</model>
+                <title>belfius Pay Button</title>
+            </sisow_belfius>
+			<sisow_vpay>
+				<model>Sisow\Payment\Model\Method\Vpay</model>
+                <title>V PAY</title>
+            </sisow_vpay>
+			<sisow_capayable>
+				<model>Sisow\Payment\Model\Method\Capayable</model>
+                <title>Capayable Gespreid Betalen</title>
+            </sisow_capayable>
+			<sisow_ebill>
+				<model>Sisow\Payment\Model\Method\Ebill</model>
+                <title>Ebill</title>
+            </sisow_ebill>
+        </payment>
+    </default>
+</config>
