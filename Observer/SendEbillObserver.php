@@ -56,6 +56,9 @@ class SendEbillObserver implements ObserverInterface
 		if($days > 0)
 			$arg['days'] = $days;
 		
+		$testmode = $this->_scopeConfig->getValue('payment/'.$methodCode.'/testmode', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+		$arg['testmode'] = $testmode ? 'true' : 'false';
+		
 		$this->_sisow->payment = substr($methodCode, 6);
 		$this->_sisow->amount = $order->getBaseGrandTotal();
 		$this->_sisow->purchaseId = $orderId;

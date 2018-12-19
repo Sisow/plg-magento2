@@ -468,11 +468,12 @@ class Start  extends \Magento\Framework\App\Action\Action
             return $i;
         }
 
-        $foomanGroup = $extAttr->getFoomanTotalGroup();
-        if (empty($foomanGroup)) {
+        if (!method_exists ( $extAttr , 'getFoomanTotalGroup' )) {
             return $i;
         }
-
+		
+		$foomanGroup = $extAttr->getFoomanTotalGroup();
+		
         $totals = $foomanGroup->getItems();
         if (empty($totals)) {
             return $i;
