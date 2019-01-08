@@ -33,6 +33,12 @@ class SendEbillObserver implements ObserverInterface
 		if($methodCode != 'sisow_overboeking' && $methodCode != 'sisow_ebill')
 			return $this;
 		
+		// order already processed
+		$trxId = $order->getPayment()->getAdditionalInformation('trxId');
+		
+		if(!empty($trxId))
+			return $this;
+		
 		$orderId = $order->getIncrementId();
 		
 		// generate billing info
@@ -71,8 +77,11 @@ class SendEbillObserver implements ObserverInterface
 		
 		if($this->_sisow->TransactionRequest($arg) < 0)
 			$this->_messageManager->addError(__("Failed to create %1!", $method->getTitle()) . " (" . $this->_sisow->errorCode . ", " . $this->_sisow->errorMessage . ")");
-		else			
+		else{
+			$order->getPayment()->setAdditionalInformation('trxId', $this->_sisow->trxId)->save();
+			
 			$this->_messageManager->addSuccess(__("Sisow %1 created!", $method->getTitle()));
+		}
 		return $this;
 	}
 }
