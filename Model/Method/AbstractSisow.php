@@ -106,9 +106,26 @@ class AbstractSisow extends \Magento\Payment\Model\Method\AbstractMethod
         $sisow = $this->_objectManager->create('Sisow\Payment\Model\Sisow');
 		$sisow->amount = $amount;
 		
-		if($sisow->RefundRequest($payment->getParentTransactionId()) < 0)
+		$method = $payment->getMethodInstance();
+		
+		if($method->getCode() == 'sisow_billink' )
 		{
+			$posts = array();
+			$posts['tax'] = 2100;
+			$posts['exclusive'] = 'false';
+			$posts['description'] = 'refund';
+			
+			if($sisow->CreditInvoiceRequest($payment->getParentTransactionId(), $posts) < 0)
+			{
+			}
 		}
+		else
+		{
+			if($sisow->RefundRequest($payment->getParentTransactionId()) < 0)
+			{
+			}
+		}
+		
 		
         return $this;
     }
@@ -119,14 +136,14 @@ class AbstractSisow extends \Magento\Payment\Model\Method\AbstractMethod
 		$trxid = $payment->getOrder()->getPayment()->getAdditionalInformation('trxId');
 		if($sisow->InvoiceRequest($trxid) < 0)
 		{
-			print_r($payment->getTransactionId());
-			exit;
-		}
-		
-		$payment->setTransactionId($trxid)
-				->setIsTransactionClosed(1)
-				->save();
 
+		}
+		else
+		{		
+			$payment->setTransactionId($trxid)
+			->setIsTransactionClosed(1)
+			->save();
+		}
         return $this;
     }
 }

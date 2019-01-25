@@ -9,7 +9,6 @@ class Billink extends AbstractSisow
 	protected $_code = 'sisow_billink';
 	
 	protected $_canUseCheckout = true;
-	protected $_canRefund = false;
 	
 	/**
      * Payment Method feature
@@ -17,13 +16,6 @@ class Billink extends AbstractSisow
      * @var bool
      */
     protected $_canCapture = true;
-
-    /**
-     * Payment Method feature
-     *
-     * @var bool
-     */
-    protected $_canCapturePartial = false;
 		
 	public function assignData(\Magento\Framework\DataObject $data)
     {		

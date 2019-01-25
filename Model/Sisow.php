@@ -95,6 +95,7 @@ class Sisow
 		$ch = curl_init();
 		curl_setopt_array($ch, $options);
 		$this->response = curl_exec($ch);
+		
 		curl_close($ch); 
 		if (!$this->response) {
 			return false;
@@ -373,7 +374,14 @@ class Sisow
 		$pars = array();
 		$pars["merchantid"] = $this->merchantId;
 		$pars["trxid"] = $trxid;
-		$pars["sha1"] = sha1($trxid . $this->merchantId . $this->merchantKey);
+		
+		if($this->amount > 0){
+			$pars["amount"] = round($this->amount * 100);
+			$pars["sha1"] = sha1($trxid . $pars["amount"] . $this->merchantId . $this->merchantKey);
+		}
+		else
+			$pars["sha1"] = sha1($trxid . $this->merchantId . $this->merchantKey);
+		
 		if ($keyvalue) {
 			foreach ($keyvalue as $k => $v) {
 				$pars[$k] = $v;
@@ -381,9 +389,10 @@ class Sisow
 		}
 		if (!$this->send("CreditInvoiceRequest", $pars))
 			return -1;
+		$partial = $this->parse("partial");
 		$this->invoiceNo = $this->parse("invoiceno");
 		$this->documentUrl = $this->parse("documenturl");
-		if (!$this->invoiceNo) {
+		if (!$this->invoiceNo && !$partial) {
 			$this->error();
 			return -2;
 		}
