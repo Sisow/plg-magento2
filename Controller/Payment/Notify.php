@@ -56,7 +56,7 @@ class Notify  extends \Magento\Framework\App\Action\Action
 		if(empty($trxidOrder) && empty($trxid)){
 			exit('No trxid!');
 		}
-		else if(!empty($trxidOrder) && $trxidOrder != $trxid && $order->getPayment()->getMethod() != 'sisow_overboeking' && $order->getPayment()->getMethod() != 'sisow_idealqr'){
+		else if(!empty($trxidOrder) && $trxidOrder != $trxid && $order->getPayment()->getMethod() != 'sisow_ebill' && $order->getPayment()->getMethod() != 'sisow_overboeking' && $order->getPayment()->getMethod() != 'sisow_idealqr'){
 			exit('Order id doesn\'t belong to order!');
 		}
 		else if($order->getPayment()->getMethod() == 'sisow_overboeking' && !empty($trxidOrder))		
