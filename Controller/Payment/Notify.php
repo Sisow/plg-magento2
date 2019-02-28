@@ -91,12 +91,18 @@ class Notify  extends \Magento\Framework\App\Action\Action
 				break;
 			case "Paid":
 			case "Success":
+				$amount = $sisow->amount;
+				
+				if($order->getPayment()->getMethod() == 'sisow_vvv'){
+					$amount = $order->getGrandTotal();
+				}
+				
 				$payment = $order->getPayment();
 				$payment->setTransactionId($trxid);
 				$payment->setCurrencyCode($order->getBaseCurrencyCode());
 				$payment->setPreparedMessage('Order status from Sisow: ' . $sisow->status);
 				$payment->setIsTransactionClosed(1);
-				$payment->registerCaptureNotification($sisow->amount, true);
+				$payment->registerCaptureNotification($amount, true);
 				
 				// get status
 				$status_success = $this->scopeConfig->getValue('sisow/general/successpayment', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
