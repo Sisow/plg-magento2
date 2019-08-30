@@ -7,7 +7,7 @@
         "magento/module-quote": ">=100.0"
     },
     "type": "magento2-module",
-	"version": "5.2.14",
+	"version": "5.2.19",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
@@ -17,5 +17,9 @@
         "psr-4": {
             "Sisow\\Payment\\": ""
         }
-    }
+    },
+    "repositories": [{
+            "type": "composer",
+            "url": "https://repo.magento.com"
+        }]
 }

@@ -70,8 +70,8 @@ class SendEbillObserver implements ObserverInterface
 		$this->_sisow->purchaseId = $orderId;
 		$description = $this->_scopeConfig->getValue('payment/'.$methodCode.'/description', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 		$this->_sisow->description = empty($description) ? $orderId : $description . $orderId;
-		$this->_sisow->returnUrl = $this->_urlInterface->getBaseUrl() . 'sisow/payment/returnpayment';
-		$this->_sisow->cancelUrl = $this->_urlInterface->getBaseUrl() . 'sisow/payment/returnpayment';
+		$this->_sisow->returnUrl = $this->_urlInterface->getBaseUrl();
+		$this->_sisow->cancelUrl = $this->_urlInterface->getBaseUrl();
 		$this->_sisow->notifyUrl = $this->_urlInterface->getBaseUrl() . 'sisow/payment/notify';
 		$this->_sisow->callbackUrl = $this->_urlInterface->getBaseUrl() . 'sisow/payment/notify';
 

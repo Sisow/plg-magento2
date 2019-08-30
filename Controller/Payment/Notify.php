@@ -4,27 +4,70 @@
  * created by Sisow(support@sisow.nl)
  */
 namespace Sisow\Payment\Controller\Payment;
+use Exception;
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Controller\ResultFactory;
- 
-class Notify  extends \Magento\Framework\App\Action\Action
+use Magento\Framework\Exception\InputException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Sales\Model\Order;
+use Magento\Sales\Model\Order\Email\Sender\InvoiceSender;
+use Magento\Sales\Model\Order\Email\Sender\OrderSender;
+use Magento\Sales\Model\OrderRepository;
+use Magento\Store\Model\ScopeInterface;
+use Sisow\Payment\Model\Sisow;
+
+class Notify  extends Action
 {
 	/**
      * @var OrderSender
      */
-	protected $orderSender;
+	private $orderSender;
 	
 	/**
      * @var invoiceSender
      */
-	protected $invoiceSender;
-	
-	protected $scopeConfig;
-		
-	public function __construct(\Magento\Framework\App\Action\Context $context,
-								\Magento\Sales\Model\Order\Email\Sender\OrderSender $orderSender,
-								\Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
-								\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-								\Magento\Sales\Model\OrderRepository $orderRepository
+    private $invoiceSender;
+
+    /**
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    /**
+     * @var OrderRepository
+     */
+    private $orderRepository;
+
+    /**
+     * @var Sisow
+     */
+    private $sisow;
+
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    private $searchCriteriaBuilder;
+
+    /**
+     * Notify constructor.
+     * @param Context $context
+     * @param OrderSender $orderSender
+     * @param InvoiceSender $invoiceSender
+     * @param ScopeConfigInterface $scopeConfig
+     * @param OrderRepository $orderRepository
+     * @param Sisow $sisow
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     */
+	public function __construct(Context $context,
+                                OrderSender $orderSender,
+                                InvoiceSender $invoiceSender,
+                                ScopeConfigInterface $scopeConfig,
+                                OrderRepository $orderRepository,
+                                Sisow $sisow,
+                                SearchCriteriaBuilder $searchCriteriaBuilder
 								)
     {
         parent::__construct($context);
@@ -32,6 +75,8 @@ class Notify  extends \Magento\Framework\App\Action\Action
 		$this->invoiceSender = $invoiceSender;
 		$this->scopeConfig = $scopeConfig;
 		$this->orderRepository = $orderRepository;
+		$this->sisow = $sisow;
+		$this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
 	
     public function execute()
@@ -40,42 +85,58 @@ class Notify  extends \Magento\Framework\App\Action\Action
 		$status = $this->getRequest()->getParam('status');
 		$trxid = $this->getRequest()->getParam('trxid');
 		$sha = $this->getRequest()->getParam('sha1');
-		$merchantid = $this->scopeConfig->getValue('sisow/general/merchantid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-		$merchantkey = $this->scopeConfig->getValue('sisow/general/merchantkey', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $loadByEntityId = $this->getRequest()->getParam('entityid') == 'true';
+		$merchantid = $this->scopeConfig->getValue('sisow/general/merchantid', ScopeInterface::SCOPE_STORE);
+		$merchantkey = $this->scopeConfig->getValue('sisow/general/merchantkey', ScopeInterface::SCOPE_STORE);
 		
 		// Validate Notify
-		if(sha1($trxid . $orderId . $status . $merchantid . $merchantkey) != $sha)
-			exit('Invalid Notify!');
-				
+		if(sha1($trxid . $orderId . $status . $merchantid . $merchantkey) != $sha) {
+            exit('Invalid Notify!');
+        }
+
 		// Load Order
-		$order = $this->_objectManager->create('Magento\Sales\Model\Order')->loadByIncrementId($orderId);
-		
-		// Load TrxId
+        try {
+		    if($loadByEntityId) {
+                $order = $this->orderRepository->get($orderId);
+            }
+		    else{
+                $this->searchCriteriaBuilder->addFilter('increment_id', $orderId);
+                $orders = $this->orderRepository->getList($this->searchCriteriaBuilder->create());
+
+                if($orders->getTotalCount() != 1){
+                    exit('Number of orders found: ' .$orders->getTotalCount());
+                }else{
+                    $orderArray = $orders->getItems();
+                    $order = reset($orderArray);
+                }
+            }
+        } catch (InputException $e) {
+		    exit('Error while loading order!');
+        } catch (NoSuchEntityException $e) {
+            exit('Error while loading order!');
+        }
+
+        // Load TrxId
 		$trxidOrder = $order->getPayment()->getAdditionalInformation('trxId');
 		
 		if(empty($trxidOrder) && empty($trxid)){
 			exit('No trxid!');
 		}
-		else if(!empty($trxidOrder) && $trxidOrder != $trxid && $order->getPayment()->getMethod() != 'sisow_ebill' && $order->getPayment()->getMethod() != 'sisow_overboeking' && $order->getPayment()->getMethod() != 'sisow_idealqr'){
-			exit('Order id doesn\'t belong to order!');
-		}
 		else if($order->getPayment()->getMethod() == 'sisow_overboeking' && !empty($trxidOrder))		
 		{						
 			$trxid = $trxidOrder;					
 		}
-				
-		// Load Sisow Model
-		$sisow = $this->_objectManager->create('Sisow\Payment\Model\Sisow');
-		
+
 		// Execute StatusRequest
-		if(($ex = $sisow->StatusRequest($trxid)) < 0)
+		if(($ex = $this->sisow->StatusRequest($trxid)) < 0)
 			exit('StatusRequest failed');
 				
 		// Sisow status set?
-		if(empty($sisow->status))
-			return false;
+		if(empty($this->sisow->status)) {
+            return exit('No sisow status');
+        }
 
-		switch($sisow->status)
+		switch($this->sisow->status)
 		{
 			case "Cancelled":
 			case "Expired":
@@ -84,14 +145,15 @@ class Notify  extends \Magento\Framework\App\Action\Action
 				if($order::STATE_NEW != $order->getState())
 					exit('Order already processed!');
 				
-				$order->registerCancellation('Order status from Sisow: ' . $sisow->status)->Save();
+				$order->registerCancellation('Order status from Sisow: ' . $this->sisow->status)->Save();
 				break;
 			case "Reversed":
-				$order->registerCancellation('Order status from Sisow: ' . $sisow->status)->Save();
+            case "Refund":
+				$order->registerCancellation('Order status from Sisow: ' . $this->sisow->status)->Save();
 				break;
 			case "Paid":
 			case "Success":
-				$amount = $sisow->amount;
+				$amount = $this->sisow->amount;
 				
 				if($order->getPayment()->getMethod() == 'sisow_vvv'){
 					$amount = $order->getGrandTotal();
@@ -99,15 +161,15 @@ class Notify  extends \Magento\Framework\App\Action\Action
 				
 				$payment = $order->getPayment();
 				$payment->setTransactionId($trxid);
-				$payment->setCurrencyCode($order->getBaseCurrencyCode());
-				$payment->setPreparedMessage('Order status from Sisow: ' . $sisow->status);
+				$payment->setCurrencyCode($order->getOrderCurrencyCode());
+				$payment->setPreparedMessage('Order status from Sisow: ' . $this->sisow->status);
 				$payment->setIsTransactionClosed(1);
 				$payment->registerCaptureNotification($amount, true);
 				
 				// get status
-				$status_success = $this->scopeConfig->getValue('sisow/general/successpayment', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+				$status_success = $this->scopeConfig->getValue('sisow/general/successpayment', ScopeInterface::SCOPE_STORE);
 				
-				$order->setState(\Magento\Sales\Model\Order::STATE_PROCESSING)->setStatus($status_success);	
+				$order->setState(Order::STATE_PROCESSING)->setStatus($status_success);
 				$this->orderRepository->save($order);
 				
 				// notify customer
@@ -118,9 +180,11 @@ class Notify  extends \Magento\Framework\App\Action\Action
 				// Sending invoice
 				$invoice = $payment->getCreatedInvoice();
 				if($invoice != null){
-					$this->invoiceSender->send($invoice);
-					$order->addStatusHistoryComment(__('You notified customer about invoice #%1.', $invoice->getIncrementId()))->setIsCustomerNotified(true);
-					$this->orderRepository->save($order);
+				    try {
+                        $this->invoiceSender->send($invoice);
+                        $order->addStatusHistoryComment(__('You notified customer about invoice #%1.', $invoice->getIncrementId()))->setIsCustomerNotified(true);
+                        $this->orderRepository->save($order);
+                    }catch (Exception $ex){}
 				}			
 
 				if($order->getIsVirtual())
@@ -138,9 +202,6 @@ class Notify  extends \Magento\Framework\App\Action\Action
 				$order->hold()->save();
 				break;
 			case "Open":
-				break;
-			case "Refund":
-				$order->registerCancellation('Order status from Sisow: ' . $sisow->status)->Save();
 				break;
 			default:
 				exit('Status unknown');

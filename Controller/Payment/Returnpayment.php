@@ -1,17 +1,19 @@
 <?php
 /**
- * Copyright © 2015 Inchoo d.o.o.
+ * Copyright ï¿½ 2015 Inchoo d.o.o.
  * created by Zoran Salamun(zoran.salamun@inchoo.net)
  */
 namespace Sisow\Payment\Controller\Payment;
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Checkout\Model\Session;
  
-class Returnpayment extends \Magento\Framework\App\Action\Action
+class Returnpayment extends Action
 {		
 	protected $_checkoutSession;
-	public function __construct(\Magento\Framework\App\Action\Context $context,
-								Session $checkoutSession)
+	public function __construct(Context $context,
+                                Session $checkoutSession)
     {
 		$this->_checkoutSession = $checkoutSession;
 		
@@ -20,14 +22,10 @@ class Returnpayment extends \Magento\Framework\App\Action\Action
 	
     public function execute()
     {
-		$orderid = $this->getRequest()->getParam('ec');
 		$status = $this->getRequest()->getParam('status');
 		
 		$resultRedirect = $this->resultRedirectFactory->create();
-		
-		//Load Order
-		$order = $this->_objectManager->create('Magento\Sales\Model\Order')->loadByIncrementId($orderid);
-		
+
 		if($status == 'Success')
 		{
 			$this->_checkoutSession->start();
