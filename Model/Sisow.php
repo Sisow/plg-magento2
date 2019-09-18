@@ -82,6 +82,7 @@ class Sisow
 
 	public function send($method, array $keyvalue = NULL, $return = 1) {
 		$url = "https://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/" . $method;
+
 		$options = array(
 			CURLOPT_POST => 1,
 			CURLOPT_HEADER => 0,

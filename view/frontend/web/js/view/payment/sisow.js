@@ -1,5 +1,5 @@
 /**
- * Copyright © 2015 Magento. All rights reserved.
+ * Copyright ï¿½ 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
 /*browser:true*/
@@ -114,7 +114,11 @@ define(
 			{
                 type: 'sisow_billink',
                 component: 'Sisow_Payment/js/view/payment/method-renderer/sisow-billink'
-            }				
+            },
+            {
+                type: 'sisow_spraypay',
+                component: 'Sisow_Payment/js/view/payment/method-renderer/sisow-spraypay'
+            }
         );
         /** Add view logic here if needed */
         return Component.extend({});

@@ -91,6 +91,7 @@ class SisowConfigProvider implements ConfigProviderInterface
 					'logoCapayable' => $this->GetLogo('capayable'),
 					'logoKbc' => $this->GetLogo('kbc'),
 					'logoCbc' => $this->GetLogo('cbc'),
+					'logoSpraypay' => $this->GetLogo('spraypay'),
 					'logoCheckout' => (bool)$this->_scopeConfig->getValue('payment/general/checkoutlogo', ScopeInterface::SCOPE_STORE)
                 ],
             ],

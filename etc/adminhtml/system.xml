@@ -339,7 +339,6 @@
 						<config_path>payment/sisow_homepay/paymentfee</config_path>
 					</field>
 				</group>
-				
 				<group id="sisow_cbc" translate="label" type="text" sortOrder="127" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>CBC</label>
 					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -389,7 +388,6 @@
 						<config_path>payment/sisow_cbc/paymentfee</config_path>
 					</field>
 				</group>
-				
 				<group id="sisow_kbc" translate="label" type="text" sortOrder="128" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>KBC</label>
 					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -439,7 +437,6 @@
 						<config_path>payment/sisow_kbc/paymentfee</config_path>
 					</field>
 				</group>
-				
 				<group id="sisow_sofort" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>SofortBanking</label>
 					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -1203,6 +1200,55 @@
 					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
 						<label>Payment Fee</label>
 						<config_path>payment/sisow_capayable/paymentfee</config_path>
+					</field>
+				</group>
+				<group id="sisow_spraypay" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Spraypay</label>
+					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enabled</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_spraypay/active</config_path>
+					</field>
+					<field id="testmode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Testmode</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_spraypay/testmode</config_path>
+					</field>
+					<field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Title</label>
+						<config_path>payment/sisow_spraypay/title</config_path>
+					</field>
+					<field id="description" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Description</label>
+						<config_path>payment/sisow_spraypay/description</config_path>
+					</field>
+					<field id="sort_order" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Sort Order</label>
+						<frontend_class>validate-number</frontend_class>
+						<config_path>payment/sisow_spraypay/sort_order</config_path>
+					</field>
+					<field id="allowspecific" translate="label" type="allowspecific" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Applicable Countries</label>
+						<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+						<config_path>payment/sisow_spraypay/allowspecific</config_path>
+					</field>
+					<field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment from Specific Countries</label>
+						<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+						<config_path>payment/sisow_spraypay/specificcountry</config_path>
+					</field>
+					<field id="min_order_total" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Minimum Order Total</label>
+						<config_path>payment/sisow_spraypay/min_order_total</config_path>
+					</field>
+					<field id="max_order_total" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Maximum Order Total</label>
+						<comment>Leave empty to disable limit</comment>
+						<config_path>payment/sisow_spraypay/max_order_total</config_path>
+					</field>
+					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Payment Fee</label>
+						<config_path>payment/sisow_spraypay/paymentfee</config_path>
 					</field>
 				</group>
 				<group id="sisow_klarna" translate="label" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
