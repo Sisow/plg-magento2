@@ -500,6 +500,10 @@ class Start extends Action
 
         $foomanGroup = $extAttr->getFoomanTotalGroup();
 
+        if (empty($foomanGroup)) {
+            return $i;
+        }
+
         $totals = $foomanGroup->getItems();
         if (empty($totals)) {
             return $i;
