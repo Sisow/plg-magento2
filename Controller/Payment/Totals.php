@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright Sisow 2016
+ * created by Sisow(support@sisow.nl)
+ */
 namespace Sisow\Payment\Controller\Payment;
 use Magento\Framework\App\Action\Context;
 use Magento\Checkout\Model\Session;

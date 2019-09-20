@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright © 2015 Inchoo d.o.o.
- * created by Zoran Salamun(zoran.salamun@inchoo.net)
+ * Copyright Sisow 2016
+ * created by Sisow(support@sisow.nl)
  */
 namespace Sisow\Payment\Controller\Payment;
 use Magento\Framework\Controller\ResultFactory;

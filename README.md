@@ -53,3 +53,12 @@ Below you will find a quickstart for the configuration, for a full description p
 6. Save the settings
 7. After this you can enable the Sisow payment method you like
 8. Save the settings
+
+## Changelog
+
+5.3.1
+- Set correct version number in composer.json
+- added changelog to readme
+
+5.3.0
+- Added payment method spraypay

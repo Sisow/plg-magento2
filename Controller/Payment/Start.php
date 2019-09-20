@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright � 2015 Inchoo d.o.o.
- * created by Zoran Salamun(zoran.salamun@inchoo.net)
+ * Copyright Sisow 2016
+ * created by Sisow(support@sisow.nl)
  */
 
 namespace Sisow\Payment\Controller\Payment;
@@ -27,6 +27,7 @@ use Magento\Sales\Model\Order\Payment\Transaction\BuilderInterface;
 use Magento\Sales\Model\Service\InvoiceService;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Tax\Model\Calculation;
+use Sisow\Payment\Model\Sisow;
 
 
 class Start extends Action
@@ -99,6 +100,11 @@ class Start extends Action
     private $invoiceRepository;
 
     /**
+     * @var Sisow
+     */
+    private $sisow;
+
+    /**
      * Start constructor.
      * @param Context $context
      * @param CustomerSession $customerSession
@@ -112,6 +118,7 @@ class Start extends Action
      * @param InvoiceService $invoiceService
      * @param OrderRepository $orderRepository
      * @param InvoiceRepository $invoiceRepository
+     * @param Sisow $sisow
      */
     public function __construct(
         Context $context,
@@ -125,7 +132,8 @@ class Start extends Action
         Calculation $taxCalculation,
         InvoiceService $invoiceService,
         OrderRepository $orderRepository,
-        InvoiceRepository $invoiceRepository
+        InvoiceRepository $invoiceRepository,
+        Sisow $sisow
     )
     {
         $this->orderSender = $orderSender;
@@ -139,6 +147,7 @@ class Start extends Action
         $this->invoiceService = $invoiceService;
         $this->orderRepository = $orderRepository;
         $this->invoiceRepository = $invoiceRepository;
+        $this->sisow = $sisow;
         parent::__construct($context);
     }
 
@@ -332,29 +341,28 @@ class Start extends Action
             $this->arg['billing_company'] = '';
             $this->arg['shipping_company'] = '';
         }
-
-        $sisow = $this->_objectManager->create('Sisow\Payment\Model\Sisow');
-        $sisow->payment = $paymentCode;
-        $sisow->amount = $order->getGrandTotal();
-        $sisow->purchaseId = $order->getRealOrderId();
-        $sisow->entranceCode = $order->getEntityId();
+        
+        $this->sisow->payment = $paymentCode;
+        $this->sisow->amount = $order->getGrandTotal();
+        $this->sisow->purchaseId = $order->getRealOrderId();
+        $this->sisow->entranceCode = $order->getEntityId();
         $description = $this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/description', ScopeInterface::SCOPE_STORE);
-        $sisow->description = empty($description) ? $order->getRealOrderId() : $description . $order->getRealOrderId();
-        $sisow->returnUrl = $this->_url->getUrl('sisow/payment/returnpayment') . '?entityid=true';
-        $sisow->cancelUrl = $this->_url->getUrl('sisow/payment/returnpayment') . '?entityid=true';
-        $sisow->notifyUrl = $this->_url->getUrl('sisow/payment/notify') . '?entityid=true';
-        $sisow->callbackUrl = $this->_url->getUrl('sisow/payment/notify') . '?entityid=true';
-
+        $this->sisow->description = empty($description) ? $order->getRealOrderId() : $description . $order->getRealOrderId();
+        $this->sisow->returnUrl = $paymentCode == 'overboeking' ? $order->getStore()->getBaseUrl() : $this->_url->getUrl('sisow/payment/returnpayment') . '?entityid=true';
+        $this->sisow->cancelUrl = $this->sisow->returnUrl;
+        $this->sisow->notifyUrl = $this->_url->getUrl('sisow/payment/notify') . '?entityid=true';
+        $this->sisow->callbackUrl = $this->sisow->notifyUrl;
+        
         $method = $order->getPayment();
-        if ($sisow->payment == 'ideal') {
-            $sisow->issuerId = $method->getAdditionalInformation('issuerid');
-        } else if ($sisow->payment == 'giropay' || $sisow->payment == 'eps') {
+        if ($this->sisow->payment == 'ideal') {
+            $this->sisow->issuerId = $method->getAdditionalInformation('issuerid');
+        } else if ($this->sisow->payment == 'giropay' || $this->sisow->payment == 'eps') {
             $this->arg['bic'] = $method->getAdditionalInformation('bic');
-        } else if ($sisow->payment == 'focum') {
+        } else if ($this->sisow->payment == 'focum') {
             $this->arg['gender'] = $method->getAdditionalInformation('gender');
             $this->arg['birthdate'] = $method->getAdditionalInformation('dob');
             $this->arg['iban'] = $method->getAdditionalInformation('iban');
-        } else if ($sisow->payment == 'afterpay' || $sisow->payment == 'capayable' || $sisow->payment == 'billink') {
+        } else if ($this->sisow->payment == 'afterpay' || $this->sisow->payment == 'capayable' || $this->sisow->payment == 'billink') {
             $this->arg['gender'] = $method->getAdditionalInformation('gender');
             $this->arg['birthdate'] = $method->getAdditionalInformation('dob');
             $this->arg['billing_coc'] = $method->getAdditionalInformation('coc');
@@ -365,10 +373,10 @@ class Start extends Action
                 $this->arg['shipping_phone'] = $phone;
                 $this->arg['billing_phone'] = $phone;
             }
-        } else if ($sisow->payment == 'klarna') {
+        } else if ($this->sisow->payment == 'klarna') {
             $this->arg['gender'] = $method->getAdditionalInformation('gender');
             $this->arg['birthdate'] = $method->getAdditionalInformation('dob');
-        } else if ($sisow->payment == 'overboeking') {
+        } else if ($this->sisow->payment == 'overboeking') {
             $days = $this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/days', ScopeInterface::SCOPE_STORE);
             $include = $this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/include', ScopeInterface::SCOPE_STORE);
 
@@ -377,20 +385,20 @@ class Start extends Action
                 $this->arg['days'] = $days;
         }
 
-        if (($ex = $sisow->TransactionRequest($this->arg)) < 0) {
+        if (($ex = $this->sisow->TransactionRequest($this->arg)) < 0) {
             try{
-                $order->registerCancellation('Failed to start Transaction (' . $ex . ', ' . $sisow->errorCode . ', ' . $sisow->errorMessage . ')');
+                $order->registerCancellation('Failed to start Transaction (' . $ex . ', ' . $this->sisow->errorCode . ', ' . $this->sisow->errorMessage . ')');
                 $this->orderRepository->save($order);
             }catch (LocalizedException $e){}
 
             $this->checkoutSession->restoreQuote();
 
-            if ($sisow->payment == 'focum') {
+            if ($this->sisow->payment == 'focum') {
                 $this->messageManager->addErrorMessage('Op dit moment is het niet mogelijk om te betalen via Focum Achterafbetalen, kies een andere betaaloptie.');
-            }else if ($sisow->payment == 'billink') {
+            }else if ($this->sisow->payment == 'billink') {
                 $this->messageManager->addErrorMessage('Op dit moment is het niet mogelijk om te betalen via Billink, kies een andere betaaloptie.');
-            }else if ($sisow->payment == 'afterpay') {
-                $errorMessage = $sisow->errorMessage;
+            }else if ($this->sisow->payment == 'afterpay') {
+                $errorMessage = $this->sisow->errorMessage;
 
                 $defaultError = 'Helaas is uw aanvraag op dit moment niet door AfterPay geaccepteerd. Voor vragen kunt u contact opnemen met AfterPay of op de website kijken bij "veel gestelde vragen" via de link http://www.afterpay.nl/page/consument-faq onder het kopje "Gegevenscontrole". Wij adviseren u voor een andere betaalmethode te kiezen om alsnog de betaling van uw bestelling af te ronden.';
 
@@ -405,26 +413,26 @@ class Start extends Action
                 } else {
                     $this->messageManager->addErrorMessage($defaultError);
                 }
-            } else if ($sisow->payment == 'klarna') {
+            } else if ($this->sisow->payment == 'klarna') {
                 $this->messageManager->addErrorMessage('Op dit moment is het niet mogelijk om te betalen via Klarna, kies een andere betaaloptie.');
             }else {
-                $this->messageManager->addErrorMessage(__('Error on starting the transaction') . ' (' . $ex . ', ' . $sisow->errorCode . ')');
+                $this->messageManager->addErrorMessage(__('Error on starting the transaction') . ' (' . $ex . ', ' . $this->sisow->errorCode . ')');
             }
             $this->_redirect('checkout/cart');
             return;
         }
 
-        $order->getPayment()->setAdditionalInformation('trxId', $sisow->trxId)->save();
+        $order->getPayment()->setAdditionalInformation('trxId', $this->sisow->trxId)->save();
 
-        if ($sisow->payment == 'overboeking' || $sisow->payment == 'ebill' || $sisow->payment == 'focum' || $sisow->payment == 'afterpay' || $sisow->payment == 'klarna' || $sisow->payment == 'billink') {
+        if ($this->sisow->payment == 'overboeking' || $this->sisow->payment == 'ebill' || $this->sisow->payment == 'focum' || $this->sisow->payment == 'afterpay' || $this->sisow->payment == 'klarna' || $this->sisow->payment == 'billink') {
             // set transaction status to processing
-            if ($sisow->payment == 'focum' || $sisow->payment == 'billink' || $sisow->payment == 'afterpay' || ($sisow->payment == 'klarna' && !$sisow->pendingKlarna)) {
+            if ($this->sisow->payment == 'focum' || $this->sisow->payment == 'billink' || $this->sisow->payment == 'afterpay' || ($this->sisow->payment == 'klarna' && !$this->sisow->pendingKlarna)) {
                 // get payment
                 $orderPayment = $order->getPayment();
 
                 // set payment values
                 $orderPayment->setPreparedMessage('Sisow status Reservation')
-                    ->setTransactionId($sisow->trxId)
+                    ->setTransactionId($this->sisow->trxId)
                     ->setCurrencyCode($order->getBaseCurrencyCode())
                     ->setIsTransactionClosed(0)
                     ->registerAuthorizationNotification($order->getBaseGrandTotal());
@@ -448,7 +456,7 @@ class Start extends Action
                     // save payment
                     $orderPayment = $order->getPayment();
 
-                    $orderPayment->setTransactionId($sisow->trxId)
+                    $orderPayment->setTransactionId($this->sisow->trxId)
                         ->setCurrencyCode($order->getBaseCurrencyCode())
                         ->setPreparedMessage('Sisow status Success')
                         ->setIsTransactionClosed(1)
@@ -460,7 +468,7 @@ class Start extends Action
 
             $this->_redirect($this->_url->getUrl('checkout/onepage/success'));
         } else
-            $this->_redirect($sisow->issuerUrl);
+            $this->_redirect($this->sisow->issuerUrl);
         return;
     }
 
