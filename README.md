@@ -56,6 +56,9 @@ Below you will find a quickstart for the configuration, for a full description p
 
 ## Changelog
 
+5.3.2
+- Better fooman validation
+
 5.3.1
 - fix: sisow class not loaded by objectManager anymore
 - Set correct version number in composer.json
