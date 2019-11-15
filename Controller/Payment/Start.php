@@ -218,6 +218,7 @@ class Start extends Action
             $this->arg['product_netprice_' . $i] = round($item->getPrice() * 100, 0);
             $this->arg['product_nettotal_' . $i] = round($item->getRowTotal() * 100, 0);
             $this->arg['product_total_' . $i] = round($item->getRowTotalInclTax() * 100, 0);
+            $this->arg['product_type_' . $i] = $item->getIsVirtual() ? 'digital' : 'physical';
 
             // load product details
             $product = $item->getProduct();
@@ -250,6 +251,7 @@ class Start extends Action
             $this->arg['product_nettotal_' . $i] = round($shipping * 100, 0);
             $this->arg['product_total_' . $i] = round($shiptax * 100, 0);
             $this->arg['product_taxrate_' . $i] = round((($this->arg['product_total_' . $i] / $this->arg['product_nettotal_' . $i]) - 1) * 100) * 100;
+            $this->arg['product_type_' . $i] = 'shipping_fee';
 
             $i++;
         }
@@ -314,6 +316,7 @@ class Start extends Action
             $this->arg['product_price_' . $i] = $total;
             $this->arg['product_nettotal_' . $i] = $netTotal;
             $this->arg['product_total_' . $i] = $total;
+            $this->arg['product_type_' . $i] = 'discount';
             $i++;
         }
 
@@ -373,9 +376,6 @@ class Start extends Action
                 $this->arg['shipping_phone'] = $phone;
                 $this->arg['billing_phone'] = $phone;
             }
-        } else if ($this->sisow->payment == 'klarna') {
-            $this->arg['gender'] = $method->getAdditionalInformation('gender');
-            $this->arg['birthdate'] = $method->getAdditionalInformation('dob');
         } else if ($this->sisow->payment == 'overboeking') {
             $days = $this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/days', ScopeInterface::SCOPE_STORE);
             $include = $this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/include', ScopeInterface::SCOPE_STORE);
@@ -424,9 +424,9 @@ class Start extends Action
 
         $order->getPayment()->setAdditionalInformation('trxId', $this->sisow->trxId)->save();
 
-        if ($this->sisow->payment == 'overboeking' || $this->sisow->payment == 'ebill' || $this->sisow->payment == 'focum' || $this->sisow->payment == 'afterpay' || $this->sisow->payment == 'klarna' || $this->sisow->payment == 'billink') {
+        if ($this->sisow->payment == 'overboeking' || $this->sisow->payment == 'ebill' || $this->sisow->payment == 'focum' || $this->sisow->payment == 'afterpay' || $this->sisow->payment == 'billink') {
             // set transaction status to processing
-            if ($this->sisow->payment == 'focum' || $this->sisow->payment == 'billink' || $this->sisow->payment == 'afterpay' || ($this->sisow->payment == 'klarna' && !$this->sisow->pendingKlarna)) {
+            if ($this->sisow->payment == 'focum' || $this->sisow->payment == 'billink' || $this->sisow->payment == 'afterpay' ) {
                 // get payment
                 $orderPayment = $order->getPayment();
 
@@ -518,6 +518,7 @@ class Start extends Action
             $this->arg['product_nettotal_' . $i] = round($total->getBaseAmount() * 100);
             $this->arg['product_tax_' . $i] = round($total->getBaseTaxAmount() * 100);
             $this->arg['product_taxrate_' . $i] = round((100 * $total->getBaseTaxAmount()) / $total->getBaseAmount()) * 100;
+            $this->arg['product_type_' . $i] = 'surcharge';
 
             $i++;
         }
@@ -540,6 +541,8 @@ class Start extends Action
             if ($this->arg['product_taxrate_' . $i] == 2200 || $this->arg['product_taxrate_' . $i] == 2000 || $this->arg['product_taxrate_' . $i] == 1900) {
                 $this->arg['product_taxrate_' . $i] = 2100;
             }
+
+            $this->arg['product_type_' . $i] = 'surcharge';
 
             $i++;
         }

@@ -112,7 +112,7 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         }
 		
 		// get total
-		$quoteTotal = $address->getBaseSubtotal();
+		$quoteTotal = $address->getBaseSubtotalTotalInclTax();
 
 		// validate if there are fee settings, if there are calc fee
 		if(!empty($feeSetting)){

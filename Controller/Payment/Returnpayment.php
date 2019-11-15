@@ -26,7 +26,7 @@ class Returnpayment extends Action
 		
 		$resultRedirect = $this->resultRedirectFactory->create();
 
-		if($status == 'Success')
+		if($status == 'Success' || $status == 'Reservation')
 		{
 			$this->_checkoutSession->start();
 			$resultRedirect->setPath('checkout/onepage/success');

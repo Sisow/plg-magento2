@@ -11,7 +11,7 @@ class FeeTaxAfter extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 	}
 	
     /**
-     * Collect buckaroo fee tax totals
+     * Collect sisow fee tax totals
      *
      * @param \Magento\Quote\Model\Quote                          $quote
      * @param \Magento\Quote\Api\Data\ShippingAssignmentInterface $shippingAssignment
@@ -96,7 +96,7 @@ class FeeTaxAfter extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         return $this;
     }
     /**
-     * Assign buckaroo fee tax totals and labels to address object
+     * Assign Sisow fee tax totals and labels to address object
      *
      * @param \Magento\Quote\Model\Quote               $quote
      * @param \Magento\Quote\Model\Quote\Address\Total $total
@@ -111,12 +111,12 @@ class FeeTaxAfter extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         return [
             'code' => 'sisow_fee',
             'title' => $this->getLabel(),
-            'buckaroo_fee' => $total->getSisowFee(),
-            'base_buckaroo_fee' => $total->getBaseSisowFee(),
-            'buckaroo_fee_incl_tax' => $total->getSisowFeeInclTax(),
-            'base_buckaroo_fee_incl_tax' => $total->getBaseSisowFeeInclTax(),
-            'buckaroo_fee_tax_amount' => $total->getSisowFeeTaxAmount(),
-            'buckaroo_fee_base_tax_amount' => $total->getSisowFeeBaseTaxAmount(),
+            'sisow_fee' => $total->getSisowFee(),
+            'base_sisow_fee' => $total->getBaseSisowFee(),
+            'sisow_fee_incl_tax' => $total->getSisowFeeInclTax(),
+            'base_sisow_fee_incl_tax' => $total->getBaseSisowFeeInclTax(),
+            'sisow_fee_tax_amount' => $total->getSisowFeeTaxAmount(),
+            'sisow_fee_base_tax_amount' => $total->getSisowFeeBaseTaxAmount(),
         ];
     }
     /**
