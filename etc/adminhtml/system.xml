@@ -1154,7 +1154,7 @@
 					</field>
 				</group>
 				<group id="sisow_capayable" translate="label" type="text" sortOrder="245" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Capayable gespreid betalen</label>
+					<label>IN3 betalen in 3 termijnen</label>
 					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
 						<label>Enabled</label>
 						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -1203,7 +1203,7 @@
 					</field>
 				</group>
 				<group id="sisow_spraypay" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Spraypay</label>
+					<label>Spraypay Gespreid betalen</label>
 					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
 						<label>Enabled</label>
 						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

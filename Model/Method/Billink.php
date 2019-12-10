@@ -7,7 +7,8 @@ use Magento\Framework\DataObject;
 class Billink extends AbstractSisow
 {
 	protected $_code = 'sisow_billink';
-	
+
+    protected $_sisowCreditRefund = true;
 	protected $_canUseCheckout = true;
 	
 	/**

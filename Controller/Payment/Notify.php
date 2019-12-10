@@ -198,6 +198,13 @@ class Notify  extends Action
 			case "Pending":
 				if($order::STATE_NEW != $order->getState())
 					exit('Order already processed!');
+
+                $payment = $order->getPayment();
+                $payment->setTransactionId($trxid);
+                $payment->setCurrencyCode($order->getOrderCurrencyCode());
+                $payment->setPreparedMessage('Order status from Sisow: ' . $this->sisow->status);
+                $payment->setIsTransactionClosed(false);
+                $payment->registerAuthorizationNotification($this->sisow->amount);
 				
 				$order->hold()->save();
 				break;

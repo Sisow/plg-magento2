@@ -88,13 +88,17 @@
 				<model>Sisow\Payment\Model\Method\Belfius</model>
                 <title>belfius Pay Button</title>
             </sisow_belfius>
+            <sisow_homepay>
+                <model>Sisow\Payment\Model\Method\Homepay</model>
+                <title>ING Home'Pay</title>
+            </sisow_homepay>
 			<sisow_vpay>
 				<model>Sisow\Payment\Model\Method\Vpay</model>
                 <title>V PAY</title>
             </sisow_vpay>
 			<sisow_capayable>
 				<model>Sisow\Payment\Model\Method\Capayable</model>
-                <title>Capayable Gespreid Betalen</title>
+                <title>IN3 betalen in 3 termijnen</title>
             </sisow_capayable>
             <sisow_spraypay>
                 <model>Sisow\Payment\Model\Method\Spraypay</model>

@@ -55,6 +55,12 @@ Below you will find a quickstart for the configuration, for a full description p
 8. Save the settings
 
 ## Changelog
+5.4.1
+- Fixed: ING Home'pay now functioning
+- Fixed: Capayble/IN3 now is also being display if it is the only method active
+- Change: Image Capayable to IN3
+- Change: Name Capayable to IN3
+
 5.4.0
 - Updated to new Klarna API
 - Changed default name Spraypay

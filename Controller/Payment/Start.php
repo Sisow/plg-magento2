@@ -302,7 +302,7 @@ class Start extends Action
             }
 
             $this->arg['product_id_' . $i] = 'discount';
-            $this->arg['product_description_' . $i] = $order->getDiscountDescription();
+            $this->arg['product_description_' . $i] = empty($order->getDiscountDescription()) ? 'discount' : $order->getDiscountDescription();
             $this->arg['product_quantity_' . $i] = 1;
             $this->arg['product_weight_' . $i] = 0;
             $this->arg['product_tax_' . $i] = $total - $netTotal;

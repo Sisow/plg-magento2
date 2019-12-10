@@ -7,9 +7,9 @@ use Magento\Framework\DataObject;
 class Afterpay extends AbstractSisow
 {
 	protected $_code = 'sisow_afterpay';
-	
+
+	protected $_sisowCreditRefund = true;
 	protected $_canUseCheckout = true;
-	protected $_canRefund = false;
 	
 	/**
      * Payment Method feature

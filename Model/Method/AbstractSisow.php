@@ -4,6 +4,8 @@ namespace Sisow\Payment\Model\Method;
 
 class AbstractSisow extends \Magento\Payment\Model\Method\AbstractMethod
 {
+    protected $_sisowCreditRefund = false;
+
 	    /**
      * Availability option
      *
@@ -105,10 +107,8 @@ class AbstractSisow extends \Magento\Payment\Model\Method\AbstractMethod
     {
         $sisow = $this->_objectManager->create('Sisow\Payment\Model\Sisow');
 		$sisow->amount = $amount;
-		
-		$method = $payment->getMethodInstance();
-		
-		if($method->getCode() == 'sisow_billink' )
+
+		if($this->_sisowCreditRefund)
 		{
 			$posts = array();
 			$posts['tax'] = 2100;
@@ -136,7 +136,10 @@ class AbstractSisow extends \Magento\Payment\Model\Method\AbstractMethod
 		$trxid = $payment->getOrder()->getPayment()->getAdditionalInformation('trxId');
 		if($sisow->InvoiceRequest($trxid) < 0)
 		{
-
+            print_r($sisow->errorCode);
+            echo '<br/>';
+            print_r($sisow->errorMessage);
+            exit;
 		}
 		else
 		{		
