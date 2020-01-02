@@ -55,6 +55,10 @@ Below you will find a quickstart for the configuration, for a full description p
 8. Save the settings
 
 ## Changelog
+5.4.2
+- Removed: deprecated functions
+- Add: function to store payment fee to payment information
+
 5.4.1
 - Fixed: ING Home'pay now functioning
 - Fixed: Capayble/IN3 now is also being display if it is the only method active

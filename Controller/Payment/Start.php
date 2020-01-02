@@ -544,6 +544,11 @@ class Start extends Action
 
             $this->arg['product_type_' . $i] = 'surcharge';
 
+            $feeToPaymentInfo = $this->scopeConfig->getValue('payment/general/feepaymentinfo', ScopeInterface::SCOPE_STORE);
+            if($feeToPaymentInfo) {
+                $order->getPayment()->setAdditionalInformation('sisowfee', $order->getSisowFeeInclTax())->save();
+                $order->getPayment()->setAdditionalInformation('sisowfeetax', $order->getSisowFeeInclTax() - $order->getSisowFee())->save();
+            }
             $i++;
         }
 

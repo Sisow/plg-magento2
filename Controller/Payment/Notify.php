@@ -9,7 +9,6 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Model\Order;
@@ -182,7 +181,7 @@ class Notify  extends Action
 				if($invoice != null){
 				    try {
                         $this->invoiceSender->send($invoice);
-                        $order->addStatusHistoryComment(__('You notified customer about invoice #%1.', $invoice->getIncrementId()))->setIsCustomerNotified(true);
+                        $order->addCommentToStatusHistory(__('You notified customer about invoice #%1.', $invoice->getIncrementId()))->setIsCustomerNotified(true);
                         $this->orderRepository->save($order);
                     }catch (Exception $ex){}
 				}			
@@ -190,7 +189,7 @@ class Notify  extends Action
 				if($order->getIsVirtual())
 				{
 					$order->setState($order::STATE_COMPLETE);
-					$order->addStatusHistoryComment('Sisow status complete, virtual products', true);
+					$order->addCommentToStatusHistory('Sisow status complete, virtual products', true);
 					$this->orderRepository->save($order);
 				}
 				break;
