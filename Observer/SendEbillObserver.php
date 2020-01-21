@@ -38,9 +38,7 @@ class SendEbillObserver implements ObserverInterface
 		
 		if(!empty($trxId))
 			return $this;
-		
-		$orderId = $order->getIncrementId();
-		
+
 		// generate billing info
 		$arg = array();
 		$arg['ipaddress'] = $_SERVER['REMOTE_ADDR'];
@@ -67,12 +65,13 @@ class SendEbillObserver implements ObserverInterface
 		
 		$this->_sisow->payment = substr($methodCode, 6);
 		$this->_sisow->amount = $order->getBaseGrandTotal();
-		$this->_sisow->purchaseId = $orderId;
+		$this->_sisow->purchaseId = $order->getIncrementId();
+		$this->_sisow->entranceCode = $order->getEntityId();
 		$description = $this->_scopeConfig->getValue('payment/'.$methodCode.'/description', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-		$this->_sisow->description = empty($description) ? $orderId : $description . $orderId;
+		$this->_sisow->description = empty($description) ? $order->getIncrementId() : $description . $order->getIncrementId();
 		$this->_sisow->returnUrl = $this->_urlInterface->getBaseUrl();
 		$this->_sisow->cancelUrl = $this->_urlInterface->getBaseUrl();
-		$this->_sisow->notifyUrl = $this->_urlInterface->getBaseUrl() . 'sisow/payment/notify';
+		$this->_sisow->notifyUrl = $this->_urlInterface->getBaseUrl() . 'sisow/payment/notify' . '?entityid=true';
 		$this->_sisow->callbackUrl = $this->_urlInterface->getBaseUrl() . 'sisow/payment/notify';
 
 		if($this->_sisow->TransactionRequest($arg) < 0)

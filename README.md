@@ -55,6 +55,9 @@ Below you will find a quickstart for the configuration, for a full description p
 8. Save the settings
 
 ## Changelog
+5.4.3
+- Fix: payment failure on - in purchase ID
+
 5.4.2
 - Removed: deprecated functions
 - Add: function to store payment fee to payment information
