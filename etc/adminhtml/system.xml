@@ -50,6 +50,11 @@
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 					<config_path>payment/general/feepaymentinfo</config_path>
 				</field>
+				<field id="logging" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable logging</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<config_path>payment/general/logging</config_path>
+				</field>
 				<group id="sisow_ideal" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>iDEAL</label>
 					<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">

@@ -55,10 +55,25 @@ class Sisow
 	const statusFailure = "Failure";
 	const statusOpen = "Open";
 
-	public function __construct(\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig) {
+    /**
+     * Logging instance
+     * @var \Sisow\Payment\Logger\SisowLogger
+     */
+	private $_logger;
+
+    /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    private $_scopeConfig;
+
+	public function __construct(\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+	\Sisow\Payment\Logger\SisowLogger $logger) {
 		$this->merchantId = $scopeConfig->getValue('sisow/general/merchantid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 		$this->merchantKey = $scopeConfig->getValue('sisow/general/merchantkey', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 		$this->shopId = $scopeConfig->getValue('sisow/general/shopid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+
+		$this->_logger = $logger;
+		$this->_scopeConfig = $scopeConfig;
 	}
 
 	private function error() {
@@ -83,6 +98,12 @@ class Sisow
 	public function send($method, array $keyvalue = NULL, $return = 1) {
 		$url = "https://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/" . $method;
 
+		$loggingEnabled = $this->shopId = $this->_scopeConfig->getValue('payment/general/logging', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+
+		if($loggingEnabled) {
+            $this->_logger->addInfo($url . '?' . http_build_query($keyvalue, '', '&'));
+        }
+
 		$options = array(
 			CURLOPT_POST => 1,
 			CURLOPT_HEADER => 0,
@@ -96,7 +117,11 @@ class Sisow
 		$ch = curl_init();
 		curl_setopt_array($ch, $options);
 		$this->response = curl_exec($ch);
-		
+
+		if($loggingEnabled) {
+            $this->_logger->addInfo($this->response);
+        }
+
 		curl_close($ch); 
 		if (!$this->response) {
 			return false;
