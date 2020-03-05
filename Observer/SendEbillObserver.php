@@ -32,6 +32,9 @@ class SendEbillObserver implements ObserverInterface
 		
 		if($methodCode != 'sisow_overboeking' && $methodCode != 'sisow_ebill')
 			return $this;
+
+        // load correct merchant info
+        $this->_sisow->loadMerchantByStoreId($order->getStoreId());
 		
 		// order already processed
 		$trxId = $order->getPayment()->getAdditionalInformation('trxId');

@@ -76,6 +76,12 @@ class Sisow
 		$this->_scopeConfig = $scopeConfig;
 	}
 
+	public function loadMerchantByStoreId($storeId){
+		$this->merchantId = $this->_scopeConfig->getValue('sisow/general/merchantid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $storeId);
+		$this->merchantKey = $this->_scopeConfig->getValue('sisow/general/merchantkey', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $storeId);
+		$this->shopId = $this->_scopeConfig->getValue('sisow/general/shopid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $storeId);
+	}
+
 	private function error() {
 		$this->errorCode = $this->parse("errorcode");
 		$this->errorMessage = urldecode($this->parse("errormessage"));
