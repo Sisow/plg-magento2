@@ -86,7 +86,6 @@ class SisowConfigProvider implements ConfigProviderInterface
 					'logoWebshop' => $this->GetLogo('webshopgiftcard'),
 					'logoFocum' => $this->GetLogo('focum'),
 					'logoBelfius' => $this->GetLogo('belfius'),
-					'logoVpay' => $this->GetLogo('vpay'),
 					'logoOverboeking' => $this->GetLogo('overboeking'),
 					'logoCapayable' => $this->GetLogo('capayable'),
 					'logoKbc' => $this->GetLogo('kbc'),

@@ -17,7 +17,11 @@ define(
              * @override
              */
             isDisplayed: function () {
-                return true;
+                if (this.totals()) {
+                    if(totals.getSegment('sisow_fee') != null && totals.getSegment('sisow_fee').value > 0)
+                        return true;
+                }
+                return false;
             },
 			
 			isAvailable: function() {

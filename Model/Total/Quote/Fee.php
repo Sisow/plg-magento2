@@ -38,6 +38,14 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         parent::collect($quote, $shippingAssignment, $total);
 				
 		$paymentMethod = $quote->getPayment()->getMethod();
+
+        // set fee to zero
+        $total->setSisowFee(0);
+        $total->setBaseSisowFee(0);
+
+        $quote->setSisowFee(0);
+        $quote->setBaseSisowFee(0);
+
         if (!$paymentMethod || strpos($paymentMethod, 'sisow_') !== 0) {
             return $this;
         }
@@ -47,11 +55,11 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         }
 		
 		$baseFeeAmount = $this->getBaseFee($methodInstance, $quote);
-		
-		// set fee to zero
-		$total->setSisowFee(0);
-		$total->setBaseSisowFee(0);
-				
+
+        /* nodig voor 2.1.9 */
+        //$total->setTotalAmount('fee', 0);
+        //$total->setBaseTotalAmount('fee', 0);
+
 		if($baseFeeAmount <= 0){
 			return $this;
 		}
@@ -60,7 +68,11 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 				
 		$quote->setSisowFee($feeAmount);
 		$quote->setBaseSisowFee($baseFeeAmount);
-		
+
+		/* nodig voor 2.1.9 */
+        //$total->setTotalAmount('fee', $feeAmount);
+        //$total->setBaseTotalAmount('fee', $baseFeeAmount);
+
 		$total->setSisowFee($feeAmount);
 		$total->setBaseSisowFee($baseFeeAmount);
 		
@@ -68,8 +80,8 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 		$total->setGrandTotal($total->getGrandTotal() + $feeAmount);
 
         return $this;
-    } 
-	
+    }
+
     /**
      * Assign subtotal amount and label to address object
      *

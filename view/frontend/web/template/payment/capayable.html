@@ -27,9 +27,11 @@
             <!-- ko template: getTemplate() --><!-- /ko -->
             <!--/ko-->
         </div>
+		<!-- ko if: logoInCheckout() == false -->
 		<p>
 			<img width="125px" alt="Logo Capayable" data-bind="attr: { src: getLogo() }" />
 		</p>
+		<!--/ko-->
         <form class="form form-purchase-order" id="form-sisowcapayable" data-role="form-sisowcapayable">	
             <fieldset class="fieldset payment method" data-bind='attr: {id: "payment_form_" + getCode()}'>
                 <div class="field field-number required">

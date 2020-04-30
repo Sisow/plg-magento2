@@ -21,7 +21,7 @@
                                                         <item name="renders" xsi:type="array">
                                                             <!-- merge payment method renders here -->
                                                             <item name="children" xsi:type="array">
-                                                                <item name="sisow- payments" xsi:type="array">
+                                                                <item name="sisow-payments" xsi:type="array">
                                                                     <item name="component" xsi:type="string">Sisow_Payment/js/view/payment/sisow</item>
                                                                     <item name="methods" xsi:type="array">
 																		<item name="sisow_eps" xsi:type="array">
@@ -76,6 +76,9 @@
                                                                             <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
                                                                         </item>
 																		<item name="sisow_afterpay" xsi:type="array">
+                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                                        </item>
+                                                                        <item name="sisow_billink" xsi:type="array">
                                                                             <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
                                                                         </item>
 																		<item name="sisow_belfius" xsi:type="array">

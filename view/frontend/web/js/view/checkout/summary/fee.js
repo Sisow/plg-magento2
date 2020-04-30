@@ -15,7 +15,7 @@ define(
             totals: quote.getTotals(),
             isTaxDisplayedInGrandTotal: window.checkoutConfig.includeTaxInGrandTotal || false,
             isDisplayed: function() {
-                return this.isFullMode();
+                return this.isFullMode() && this.getPureValue() !== 0;
             },
             getValue: function() {
                 var price = 0;
@@ -29,9 +29,20 @@ define(
             getBaseValue: function() {
                 var price = 0;
                 if (this.totals()) {
+                    if(totals.getSegment('sisow_fee') == null)
+                        return price;
                     price = this.totals().base_fee;
                 }
                 return priceUtils.formatPrice(price, quote.getBasePriceFormat());
+            },
+            getPureValue: function() {
+                var price = 0;
+                if (this.totals()) {
+                    if(totals.getSegment('sisow_fee') == null)
+                        return price;
+                    price = totals.getSegment('sisow_fee').value;
+                }
+                return price;
             }
         });
     }
