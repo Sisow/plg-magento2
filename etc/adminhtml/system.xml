@@ -1108,11 +1108,6 @@
 						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 						<config_path>payment/sisow_billink/b2b</config_path>
 					</field>
-					<field id="createinvoice" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
-						<label>Create Billink invoice</label>
-						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-						<config_path>payment/sisow_billink/createinvoice</config_path>
-					</field>
 				</group>
 				<group id="sisow_focum" translate="label" type="text" sortOrder="240" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Focum AchterafBetalen</label>

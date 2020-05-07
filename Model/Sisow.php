@@ -104,10 +104,13 @@ class Sisow
 	public function send($method, array $keyvalue = NULL, $return = 1) {
 		$url = "https://www.sisow.nl/Sisow/iDeal/RestHandler.ashx/" . $method;
 
+		// array to string
+		$postData = !is_array($keyvalue) || count($keyvalue) == 0 ? '' : http_build_query($keyvalue, '', '&');
+
 		$loggingEnabled = $this->shopId = $this->_scopeConfig->getValue('payment/general/logging', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
 		if($loggingEnabled) {
-            $this->_logger->addInfo($url . '?' . http_build_query($keyvalue, '', '&'));
+            $this->_logger->addInfo($url . '?' . $postData);
         }
 
 		$options = array(
@@ -119,7 +122,7 @@ class Sisow
 			CURLOPT_FORBID_REUSE => 1,
 			CURLOPT_TIMEOUT => 120,
 			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_POSTFIELDS => $keyvalue == NULL ? "" : http_build_query($keyvalue, '', '&'));
+			CURLOPT_POSTFIELDS => $keyvalue == NULL ? "" : $postData);
 		$ch = curl_init();
 		curl_setopt_array($ch, $options);
 		$this->response = curl_exec($ch);

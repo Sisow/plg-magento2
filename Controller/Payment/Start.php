@@ -453,6 +453,9 @@ class Start extends Action
                         $this->invoiceRepository->save($invoice);
                     }
                     catch (LocalizedException $e){}
+                }
+                if ((bool)$this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/createinvoice', ScopeInterface::SCOPE_STORE) || $this->sisow->payment == 'billink' ) {
+
                     // save payment
                     $orderPayment = $order->getPayment();
 
