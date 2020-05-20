@@ -65,7 +65,7 @@ class SendEbillObserver implements ObserverInterface
 		
 		$testmode = $this->_scopeConfig->getValue('payment/'.$methodCode.'/testmode', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 		$arg['testmode'] = $testmode ? 'true' : 'false';
-		
+
 		$this->_sisow->payment = substr($methodCode, 6);
 		$this->_sisow->amount = $order->getBaseGrandTotal();
 		$this->_sisow->purchaseId = $order->getIncrementId();
@@ -74,8 +74,8 @@ class SendEbillObserver implements ObserverInterface
 		$this->_sisow->description = empty($description) ? $order->getIncrementId() : $description . $order->getIncrementId();
 		$this->_sisow->returnUrl = $this->_urlInterface->getBaseUrl();
 		$this->_sisow->cancelUrl = $this->_urlInterface->getBaseUrl();
-		$this->_sisow->notifyUrl = $this->_urlInterface->getBaseUrl() . 'sisow/payment/notify' . '?entityid=true';
-		$this->_sisow->callbackUrl = $this->_urlInterface->getBaseUrl() . 'sisow/payment/notify';
+        $this->_sisow->notifyUrl = $this->_urlInterface->getBaseUrl() . 'sisow/payment/notify' . '?entityid=true';
+        $this->_sisow->callbackUrl = $this->_sisow->notifyUrl;
 
 		if($this->_sisow->TransactionRequest($arg) < 0)
 			$this->_messageManager->addError(__("Failed to create %1!", $method->getTitle()) . " (" . $this->_sisow->errorCode . ", " . $this->_sisow->errorMessage . ")");

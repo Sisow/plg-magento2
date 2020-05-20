@@ -104,12 +104,21 @@ class Notify  extends Action
             exit('Invalid Notify!');
         }
 
+        $order = null;
 		// Load Order
-        try {
-		    if($loadByEntityId) {
+
+        if($loadByEntityId) {
+            try {
                 $order = $this->orderRepository->get($orderId);
+            } catch (InputException $e) {
+                exit('Error while loading order!');
+            } catch (NoSuchEntityException $e) {
+                echo 'Error while loading order! Try fallback....';
             }
-		    else{
+        }
+
+        if (!$loadByEntityId || empty($order)) { // fallback if not found by entity_id
+            try {
                 $this->searchCriteriaBuilder->addFilter('increment_id', $orderId);
                 $orders = $this->orderRepository->getList($this->searchCriteriaBuilder->create());
 
@@ -119,12 +128,18 @@ class Notify  extends Action
                     $orderArray = $orders->getItems();
                     $order = reset($orderArray);
                 }
+            } catch (InputException $e) {
+                exit('Error while loading order!');
+            } catch (NoSuchEntityException $e) {
+                exit('Error while loading order!');
             }
-        } catch (InputException $e) {
-		    exit('Error while loading order!');
-        } catch (NoSuchEntityException $e) {
-            exit('Error while loading order!');
         }
+
+		// validate if order is loaded
+        if (empty($order->getId())) {
+            exit('No order loaded');
+        }
+
 
         // Load TrxId
 		$trxidOrder = $order->getPayment()->getAdditionalInformation('trxId');
