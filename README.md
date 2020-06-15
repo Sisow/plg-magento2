@@ -55,6 +55,9 @@ Below you will find a quickstart for the configuration, for a full description p
 8. Save the settings
 
 ## Changelog
+5.4.8
+- Fix: Make invoice
+
 5.4.7
 - Fix: Notify with payment type 'overboeking'
 

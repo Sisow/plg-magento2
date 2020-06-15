@@ -336,10 +336,9 @@ class Start extends Action
         $testmode = $this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/testmode', ScopeInterface::SCOPE_STORE);
         $this->arg['testmode'] = $testmode ? 'true' : 'false';
 
-        /*
-        if($payment == 'afterpay' && (bool)$this->scopeConfig->getValue('payment/'.$code.'/createinvoice', \Magento\Store\Model\ScopeInterface::SCOPE_STORE))
+        if($paymentCode == 'afterpay' && (bool)$this->scopeConfig->getValue('payment/'.$magentoPaymentCode.'/createinvoice', \Magento\Store\Model\ScopeInterface::SCOPE_STORE))
             $this->arg['makeinvoice'] = 'true';
-        */
+
         if (($paymentCode == 'afterpay' || $paymentCode == 'billink') && !(bool)$this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/b2b', ScopeInterface::SCOPE_STORE)) {
             $this->arg['billing_company'] = '';
             $this->arg['shipping_company'] = '';
