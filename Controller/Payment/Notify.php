@@ -17,7 +17,6 @@ use Magento\Sales\Model\Order\Email\Sender\OrderSender;
 use Magento\Sales\Model\OrderRepository;
 use Magento\Store\Model\ScopeInterface;
 use Sisow\Payment\Model\Sisow;
-use Magento\Framework\Event\ManagerInterface;
 
 class Notify  extends Action
 {
@@ -52,13 +51,6 @@ class Notify  extends Action
     private $searchCriteriaBuilder;
 
     /**
-     * Core event manager proxy
-     *
-     * @var ManagerInterface
-     */
-    protected $_eventManager;
-
-    /**
      * Notify constructor.
      * @param Context $context
      * @param OrderSender $orderSender
@@ -67,7 +59,6 @@ class Notify  extends Action
      * @param OrderRepository $orderRepository
      * @param Sisow $sisow
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
-     * @param ManagerInterface $eventManager
      */
 	public function __construct(Context $context,
                                 OrderSender $orderSender,
@@ -75,9 +66,8 @@ class Notify  extends Action
                                 ScopeConfigInterface $scopeConfig,
                                 OrderRepository $orderRepository,
                                 Sisow $sisow,
-                                SearchCriteriaBuilder $searchCriteriaBuilder,
-                                ManagerInterface $eventManager
-								)
+                                SearchCriteriaBuilder $searchCriteriaBuilder
+                                )
     {
         parent::__construct($context);
 		$this->orderSender = $orderSender;
@@ -86,7 +76,6 @@ class Notify  extends Action
 		$this->orderRepository = $orderRepository;
 		$this->sisow = $sisow;
 		$this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->_eventManager = $eventManager;
     }
 	
     public function execute()
@@ -169,14 +158,16 @@ class Notify  extends Action
 			case "Denied":
 				if($order::STATE_NEW != $order->getState())
 					exit('Order already processed!');
-				
-				$order->registerCancellation('Order status from Sisow: ' . $this->sisow->status)->Save();
-                $this->_eventManager->dispatch('order_cancel_after', ['order' => $order]);
+
+                $order->cancel();
+                $order->addCommentToStatusHistory('Order status from Sisow: ' . $this->sisow->status);
+                $this->orderRepository->save($order);
 				break;
 			case "Reversed":
             case "Refund":
-				$order->registerCancellation('Order status from Sisow: ' . $this->sisow->status)->Save();
-                $this->_eventManager->dispatch('order_cancel_after', ['order' => $order]);
+                $order->cancel();
+                $order->addCommentToStatusHistory('Order status from Sisow: ' . $this->sisow->status);
+                $this->orderRepository->save($order);
 				break;
 			case "Paid":
 			case "Success":

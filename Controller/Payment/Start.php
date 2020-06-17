@@ -386,7 +386,8 @@ class Start extends Action
 
         if (($ex = $this->sisow->TransactionRequest($this->arg)) < 0) {
             try{
-                $order->registerCancellation('Failed to start Transaction (' . $ex . ', ' . $this->sisow->errorCode . ', ' . $this->sisow->errorMessage . ')');
+                $order->cancel();
+                $order->addCommentToStatusHistory('Failed to start Transaction (' . $ex . ', ' . $this->sisow->errorCode . ', ' . $this->sisow->errorMessage . ')');
                 $this->orderRepository->save($order);
             }catch (LocalizedException $e){}
 
