@@ -171,6 +171,10 @@ class Notify  extends Action
 				break;
 			case "Paid":
 			case "Success":
+			    $orderstate = $order->getState();
+			    if (Order::STATE_PROCESSING == $orderstate || Order::STATE_COMPLETE == $orderstate)
+                    exit('Order already processed!');
+
 				$amount = $this->sisow->amount;
 				
 				if($order->getPayment()->getMethod() == 'sisow_vvv'){
@@ -197,7 +201,7 @@ class Notify  extends Action
 
 				// Sending invoice
 				$invoice = $payment->getCreatedInvoice();
-				if($invoice != null){
+				if($invoice != null && !$invoice->getEmailSent()){
 				    try {
                         $this->invoiceSender->send($invoice);
                         $order->addCommentToStatusHistory(__('You notified customer about invoice #%1.', $invoice->getIncrementId()))->setIsCustomerNotified(true);

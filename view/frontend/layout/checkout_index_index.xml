@@ -3,6 +3,7 @@
 	<head>
 		<css src="https://bankauswahl.giropay.de/widget/v2/style.css" src_type="url" />
 		<script src="https://bankauswahl.giropay.de/widget/v2/girocheckoutwidget.js" src_type="url" />
+        <css src="Sisow_Payment::css/checkout.css" />
 	</head>
     <body>
         <referenceBlock name="checkout.root">

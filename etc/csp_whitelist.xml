@@ -20,6 +20,7 @@
         <policy id="img-src">
             <values>
                 <value id="sisow-klarna-img1" type="host">x.klarnacdn.net</value>
+                <value id="sisow-klarna-cdn" type="host">cdn.klarna.com/1.0/shared/image</value>
             </values>
         </policy>
     </policies>

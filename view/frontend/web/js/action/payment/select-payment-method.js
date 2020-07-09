@@ -11,8 +11,10 @@ define(
         var isLoading = ko.observable(false);
 
         return function (paymentMethod) {
-            quote.paymentMethod(paymentMethod);
-            totals(isLoading, paymentMethod['method']);
+            if (paymentMethod != null) {
+                quote.paymentMethod(paymentMethod);
+                totals(isLoading, paymentMethod['method']);
+            }
         }
     }
 );

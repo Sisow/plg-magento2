@@ -77,7 +77,7 @@
             </sisow_afterpay>
 			<sisow_billink>
 				<model>Sisow\Payment\Model\Method\Billink</model>
-                <title>Billink</title>
+                <title>Billink - Achteraf Betalen</title>
 				<b2b>no</b2b>
             </sisow_billink>
 			<sisow_klarna>
