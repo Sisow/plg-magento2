@@ -177,7 +177,7 @@ class Notify  extends Action
 
 				$amount = $this->sisow->amount;
 				
-				if($order->getPayment()->getMethod() == 'sisow_vvv'){
+				if($order->getPayment()->getMethod() == 'sisow_vvv' || $order->getPayment()->getMethod() == 'sisow_webshop'){
 					$amount = $order->getGrandTotal();
 				}
 				
