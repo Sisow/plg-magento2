@@ -95,7 +95,7 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         return [
             'code' => 'sisow_fee',
             'title' => 'Payment Fee',
-            'value' => $this->scopeConfig->getValue('payment/general/displayfeeinctax') ? $total->getSisowFeeInclTax() : $total->getSisowFee()
+            'value' => $this->scopeConfig->getValue('payment/general/displayfeeinctax', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) ? $total->getSisowFeeInclTax() : $total->getSisowFee()
         ];
     }
 

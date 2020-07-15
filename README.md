@@ -55,6 +55,13 @@ Below you will find a quickstart for the configuration, for a full description p
 8. Save the settings
 
 ## Changelog
+5.4.10
+- Fix: Webshop Giftcard amount (capture)
+- Fix: Fee Tax setting on multistore.
+- Notify: Stop processing if Success state already set.
+- Giropay: Content Security Policy (CSP).
+- Payment logo css
+
 5.4.9
 - Replaced: Order_cancel_after event with order->cancel().
 
