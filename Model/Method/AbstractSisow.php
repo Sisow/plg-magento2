@@ -132,6 +132,10 @@ class AbstractSisow extends \Magento\Payment\Model\Method\AbstractMethod
 	
 	public function capture(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
+        if($payment->getAdditionalInformation('sisowmakeinvoicesuccess')){
+            return $this;
+        }
+
         $sisow = $this->_objectManager->create('Sisow\Payment\Model\Sisow');
 		$trxid = $payment->getOrder()->getPayment()->getAdditionalInformation('trxId');
 		if($sisow->InvoiceRequest($trxid) < 0)
@@ -142,10 +146,14 @@ class AbstractSisow extends \Magento\Payment\Model\Method\AbstractMethod
             exit;
 		}
 		else
-		{		
+		{
+            $order = $payment->getOrder();
 			$payment->setTransactionId($trxid)
-			->setIsTransactionClosed(1)
-			->save();
+                ->setAdditionalInformation('sisowmakeinvoicesuccess', true)
+                ->setCurrencyCode($order->getBaseCurrencyCode())
+                ->setPreparedMessage('Sisow status Success')
+                ->setIsTransactionClosed(1)
+                ->registerCaptureNotification($order->getBaseGrandTotal());
 		}
         return $this;
     }

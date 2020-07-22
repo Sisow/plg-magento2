@@ -72,6 +72,9 @@ define(
 			offerB2b: function(){
 				return configSisow.b2b;
 			},
+			getDisableShippingAddress: function(){
+				return configSisow.disableshippingaddressAfterpay;
+			},
             validate: function() {
 				var $ = jQuery.noConflict();
                 var form = $('form[data-role=form-sisowafterpay]');

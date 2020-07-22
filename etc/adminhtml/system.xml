@@ -5,10 +5,12 @@
 				<label>Sisow</label>
 				<field id="merchantid" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Merchant ID</label>
+					<validate>required-entry</validate>
 					<config_path>sisow/general/merchantid</config_path>
 				</field>
 				<field id="merchantkey" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Merchant Key</label>
+					<validate>required-entry</validate>
 					<config_path>sisow/general/merchantkey</config_path>
 				</field>
 				<field id="shopid" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -1054,6 +1056,17 @@
 						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 						<config_path>payment/sisow_afterpay/createinvoice</config_path>
 					</field>
+					<field id="make_invoice_on_status" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Create Invoice when status is set to</label>
+						<comment><![CDATA[Use Default value '-- Please Select --' to create the invoice directly.]]></comment>
+						<source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+						<config_path>payment/sisow_afterpay/make_invoice_on_status</config_path>
+					</field>
+					<field id="disableshippingaddress" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Disable different shipping address</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_afterpay/disableshippingaddress</config_path>
+					</field>
 				</group>
 				<group id="sisow_billink" translate="label" type="text" sortOrder="235" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Billink - Achteraf Betalen</label>
@@ -1107,6 +1120,17 @@
 						<label>Offer B2B</label>
 						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 						<config_path>payment/sisow_billink/b2b</config_path>
+					</field>
+					<field id="b2brequiregenderdob" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Require gender and birthdate when order is B2B</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_billink/b2brequiregenderdob</config_path>
+						<comment>For B2C orders this fields are always required</comment>
+					</field>
+					<field id="disableshippingaddress" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Disable different shipping address</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_billink/disableshippingaddress</config_path>
 					</field>
 				</group>
 				<group id="sisow_focum" translate="label" type="text" sortOrder="240" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -1206,6 +1230,11 @@
 						<label>Payment Fee</label>
 						<config_path>payment/sisow_capayable/paymentfee</config_path>
 					</field>
+					<field id="disableshippingaddress" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Disable different shipping address</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_capayable/disableshippingaddress</config_path>
+					</field>
 				</group>
 				<group id="sisow_spraypay" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Spraypay Gespreid betalen</label>
@@ -1255,6 +1284,11 @@
 						<label>Payment Fee</label>
 						<config_path>payment/sisow_spraypay/paymentfee</config_path>
 					</field>
+					<field id="disableshippingaddress" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Disable different shipping address</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_spraypay/disableshippingaddress</config_path>
+					</field>
 				</group>
 				<group id="sisow_klarna" translate="label" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Klarna Factuur</label>
@@ -1303,6 +1337,22 @@
 					<field id="paymentfee" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
 						<label>Payment Fee</label>
 						<config_path>payment/sisow_klarna/paymentfee</config_path>
+					</field>
+					<field id="createinvoice" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Create Klarna invoice</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_klarna/createinvoice</config_path>
+					</field>
+					<field id="make_invoice_on_status" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Create Invoice when status is set to</label>
+						<comment><![CDATA[Use Default value '-- Please Select --' to create the invoice directly.]]></comment>
+						<source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+						<config_path>payment/sisow_klarna/make_invoice_on_status</config_path>
+					</field>
+					<field id="disableshippingaddress" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Disable different shipping address</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+						<config_path>payment/sisow_klarna/disableshippingaddress</config_path>
 					</field>
 				</group>
 				<group id="sisow_ebill" translate="label" type="text" sortOrder="10000" showInDefault="1" showInWebsite="1" showInStore="1">

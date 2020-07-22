@@ -6,6 +6,8 @@
 namespace Sisow\Payment\Model\Total\Quote;
 
 
+use Magento\Store\Model\ScopeInterface;
+
 class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 {
    /**
@@ -64,7 +66,7 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 			return $this;
 		}
 		
-		$feeAmount = $this->priceCurrency->convert($baseFeeAmount, $quote->getStore());
+		$feeAmount = $this->priceCurrency->convert($baseFeeAmount, ScopeInterface::SCOPE_STORE);
 				
 		$quote->setSisowFee($feeAmount);
 		$quote->setBaseSisowFee($baseFeeAmount);

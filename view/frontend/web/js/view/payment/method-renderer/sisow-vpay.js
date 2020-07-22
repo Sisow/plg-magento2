@@ -28,6 +28,9 @@ define(
 			logoInCheckout: function(){
 				return configSisow.logoCheckout;
 			},
+			getDisableShippingAddress: function(){
+				return false;
+			},
 			afterPlaceOrder: function () {
 				window.location.replace(url.build('sisow/payment/start/'));
 			}

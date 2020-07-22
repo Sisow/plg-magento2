@@ -70,6 +70,12 @@ define(
 			getLogo: function(){
 				return configSisow.logoBillink;
 			},
+			getDisableShippingAddress: function(){
+				return configSisow.disableshippingaddressBillink;
+			},
+			getB2bRequireGenderDoB: function(){
+				return configSisow.b2brequiregenderdobBillink;
+			},
 			logoInCheckout: function(){
 				return configSisow.logoCheckout;
 			},
@@ -115,6 +121,9 @@ define(
 				}
 				
 				return address == null || typeof address.telephone === "undefined" || address.telephone == "";
+			},
+			needGenderDob: function() {
+				return  ( this.isB2BPayment() == false || (this.isB2BPayment() && this.getB2bRequireGenderDoB()) );
 			}
 		});
     }

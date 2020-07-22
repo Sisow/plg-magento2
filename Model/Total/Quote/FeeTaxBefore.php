@@ -54,7 +54,7 @@ class FeeTaxBefore extends \Sisow\Payment\Model\Total\Quote\Fee
         if ($basePaymentFee < 0.01) {
             return $this;
         }
-        $paymentFee = $this->priceCurrency->convert($basePaymentFee, $quote->getStore());
+        $paymentFee = $this->priceCurrency->convert($basePaymentFee, ScopeInterface::SCOPE_STORE);
 		
         $productTaxClassId = $this->scopeConfig->getValue('sisow/general/feetaxclass', ScopeInterface::SCOPE_STORE);
         $address = $shippingAssignment->getShipping()->getAddress();

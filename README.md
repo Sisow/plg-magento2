@@ -55,6 +55,12 @@ Below you will find a quickstart for the configuration, for a full description p
 8. Save the settings
 
 ## Changelog
+5.4.11
+- Added: Setting to create invoice on order state (AfterPay and Klarna). 
+- Added: Setting for Billink B2B to no longer require Gender and birthdate.
+- Added: Setting to disable alternative Shipping address (AfterPay, Billink, Klarna and In3).
+- Fix: Fee setting on multistore.
+
 5.4.10
 - Fix: Webshop Giftcard amount (capture)
 - Fix: Fee Tax setting on multistore.

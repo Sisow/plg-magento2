@@ -336,8 +336,16 @@ class Start extends Action
         $testmode = $this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/testmode', ScopeInterface::SCOPE_STORE);
         $this->arg['testmode'] = $testmode ? 'true' : 'false';
 
-        if($paymentCode == 'afterpay' && (bool)$this->scopeConfig->getValue('payment/'.$magentoPaymentCode.'/createinvoice', \Magento\Store\Model\ScopeInterface::SCOPE_STORE))
-            $this->arg['makeinvoice'] = 'true';
+        //if($paymentCode == 'afterpay' && (bool)$this->scopeConfig->getValue('payment/'.$magentoPaymentCode.'/createinvoice', \Magento\Store\Model\ScopeInterface::SCOPE_STORE))
+        //    $this->arg['makeinvoice'] = 'true';
+
+        if ((bool)$this->scopeConfig->getValue('payment/'.$magentoPaymentCode.'/createinvoice', ScopeInterface::SCOPE_STORE)) {
+            $mStatus = $this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/make_invoice_on_status', ScopeInterface::SCOPE_STORE);
+
+            if (!$mStatus) {
+                $this->arg['makeinvoice'] = 'true';
+            }
+        }
 
         if (($paymentCode == 'afterpay' || $paymentCode == 'billink') && !(bool)$this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/b2b', ScopeInterface::SCOPE_STORE)) {
             $this->arg['billing_company'] = '';
@@ -424,6 +432,10 @@ class Start extends Action
 
         $order->getPayment()->setAdditionalInformation('trxId', $this->sisow->trxId)->save();
 
+        if (array_key_exists('makeinvoice', $this->arg) && $this->arg['makeinvoice'] == 'true') {
+            $order->getPayment()->setAdditionalInformation('sisowmakeinvoicesuccess', true)->save();
+        }
+
         if ($this->sisow->payment == 'overboeking' || $this->sisow->payment == 'ebill' || $this->sisow->payment == 'focum' || $this->sisow->payment == 'afterpay' || $this->sisow->payment == 'billink') {
             // set transaction status to processing
             if ($this->sisow->payment == 'focum' || $this->sisow->payment == 'billink' || $this->sisow->payment == 'afterpay' ) {
@@ -454,7 +466,9 @@ class Start extends Action
                     }
                     catch (LocalizedException $e){}
                 }
-                if ((bool)$this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/createinvoice', ScopeInterface::SCOPE_STORE) || $this->sisow->payment == 'billink' ) {
+                if ( ((bool)$this->scopeConfig->getValue('payment/' . $magentoPaymentCode . '/createinvoice', ScopeInterface::SCOPE_STORE)
+                        && array_key_exists('makeinvoice', $this->arg) && $this->arg['makeinvoice'] == 'true')
+                     || $this->sisow->payment == 'billink' ) {
 
                     // save payment
                     $orderPayment = $order->getPayment();

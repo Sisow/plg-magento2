@@ -23,9 +23,11 @@
         <!-- ko template: getTemplate() --><!-- /ko -->
         <!--/ko-->
         <div class="payment-method-billing-address">
-            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
-            <!-- ko template: getTemplate() --><!-- /ko -->
-            <!--/ko-->
+			<!-- ko if: getDisableShippingAddress() == false -->
+				<!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+					<!-- ko template: getTemplate() --><!-- /ko -->
+				<!-- /ko -->
+			<!-- /ko -->
         </div>
 		<!-- ko if: logoInCheckout() == false -->
 			<p>

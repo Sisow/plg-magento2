@@ -37,6 +37,16 @@ class SisowConfigProvider implements ConfigProviderInterface
 	{
 		return (bool)$this->_scopeConfig->getValue('payment/sisow_' . $method . '/b2b', ScopeInterface::SCOPE_STORE);
 	}
+
+    public function GetB2bRequireGenderDoB($method)
+    {
+        return (bool)$this->_scopeConfig->getValue('payment/sisow_' . $method . '/b2brequiregenderdob', ScopeInterface::SCOPE_STORE);
+    }
+
+    public function GetDisableShippingAddress($method)
+    {
+        return (bool)$this->_scopeConfig->getValue('payment/sisow_' . $method . '/disableshippingaddress', ScopeInterface::SCOPE_STORE);
+    }
 	
 	public function GetYears()
 	{		
@@ -66,6 +76,7 @@ class SisowConfigProvider implements ConfigProviderInterface
 					'issuers' => $this->GetBanks(),
 					'b2b' => $this->GetB2b('afterpay'),
 					'b2bBillink' => $this->GetB2b('billink'),
+					'b2brequiregenderdobBillink' => $this->GetB2bRequireGenderDoB('billink'),
 					'years' => $this->GetYears(),
 					'logoAfterpay' => $this->GetLogo('afterpay'),
 					'logoBillink' => $this->GetLogo('billink'),
@@ -91,7 +102,12 @@ class SisowConfigProvider implements ConfigProviderInterface
 					'logoKbc' => $this->GetLogo('kbc'),
 					'logoCbc' => $this->GetLogo('cbc'),
 					'logoSpraypay' => $this->GetLogo('spraypay'),
-					'logoCheckout' => (bool)$this->_scopeConfig->getValue('payment/general/checkoutlogo', ScopeInterface::SCOPE_STORE)
+					'logoCheckout' => (bool)$this->_scopeConfig->getValue('payment/general/checkoutlogo', ScopeInterface::SCOPE_STORE),
+                    'disableshippingaddressAfterpay' => $this->GetDisableShippingAddress('afterpay'),
+                    'disableshippingaddressBillink' => $this->GetDisableShippingAddress('billink'),
+                    'disableshippingaddressCapayable' => $this->GetDisableShippingAddress('capayable'),
+                    'disableshippingaddressKlarna' => $this->GetDisableShippingAddress('klarna'),
+                    'disableshippingaddressSpraypay' => $this->GetDisableShippingAddress('spraypay'),
                 ],
             ],
         ]);

@@ -74,15 +74,19 @@
 				<model>Sisow\Payment\Model\Method\Afterpay</model>
                 <title>Afterpay</title>
 				<b2b>no</b2b>
+                <disableshippingaddress>no</disableshippingaddress>
             </sisow_afterpay>
 			<sisow_billink>
 				<model>Sisow\Payment\Model\Method\Billink</model>
                 <title>Billink - Achteraf Betalen</title>
 				<b2b>no</b2b>
+                <b2brequiregenderdob>yes</b2brequiregenderdob>
+                <disableshippingaddress>no</disableshippingaddress>
             </sisow_billink>
 			<sisow_klarna>
 				<model>Sisow\Payment\Model\Method\Klarna</model>
                 <title>Achteraf Betalen</title>
+                <disableshippingaddress>no</disableshippingaddress>
             </sisow_klarna>
 			<sisow_belfius>
 				<model>Sisow\Payment\Model\Method\Belfius</model>
@@ -99,10 +103,12 @@
 			<sisow_capayable>
 				<model>Sisow\Payment\Model\Method\Capayable</model>
                 <title>IN3 betalen in 3 termijnen</title>
+                <disableshippingaddress>no</disableshippingaddress>
             </sisow_capayable>
             <sisow_spraypay>
                 <model>Sisow\Payment\Model\Method\Spraypay</model>
                 <title>Spraypay Gespreid Betalen</title>
+                <disableshippingaddress>no</disableshippingaddress>
             </sisow_spraypay>
 			<sisow_ebill>
 				<model>Sisow\Payment\Model\Method\Ebill</model>

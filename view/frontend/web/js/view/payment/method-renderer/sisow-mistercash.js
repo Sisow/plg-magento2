@@ -1,5 +1,5 @@
 /**
- * Copyright © 2015 Magento. All rights reserved.
+ * Copyright ï¿½ 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
 /*browser:true*/
@@ -27,6 +27,9 @@ define(
 			},
 			logoInCheckout: function(){
 				return configSisow.logoCheckout;
+			},
+			getDisableShippingAddress: function(){
+				return false;
 			},
 			afterPlaceOrder: function () {
 				window.location.replace(url.build('sisow/payment/start/'));

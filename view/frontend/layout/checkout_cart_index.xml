@@ -14,7 +14,6 @@
                         <item name="block-totals" xsi:type="array">
                             <item name="children" xsi:type="array">
 
-
                                 <item name="fee" xsi:type="array">
                                     <item name="component"  xsi:type="string">Sisow_Payment/js/view/checkout/cart/totals/fee</item>
                                     <item name="sortOrder" xsi:type="string">20</item>

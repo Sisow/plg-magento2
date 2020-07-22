@@ -22,17 +22,23 @@
         <!-- ko foreach: getRegion('messages') -->
         <!-- ko template: getTemplate() --><!-- /ko -->
         <!--/ko-->
+
+
         <div class="payment-method-billing-address">
-            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
-            <!-- ko template: getTemplate() --><!-- /ko -->
-            <!--/ko-->
+			<!-- ko ifnot: getDisableShippingAddress() -->
+			<!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+			<!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+			<!-- /ko -->
         </div>
+
+
 		<!-- ko if: logoInCheckout() == false -->
 		<p>
-			<img width="125px" alt="Logo Capayable" data-bind="attr: { src: getLogo() }" />
+			<img width="125px" alt="Logo In3" data-bind="attr: { src: getLogo() }" />
 		</p>
 		<!--/ko-->
-        <form class="form form-purchase-order" id="form-sisowcapayable" data-role="form-sisowcapayable">	
+        <form class="form form-purchase-order" id="form-sisowcapayable" data-role="form-sisowcapayable">
             <fieldset class="fieldset payment method" data-bind='attr: {id: "payment_form_" + getCode()}'>
                 <div class="field field-number required">
 					<label for="sisow_gender" class="label" style="float: left;">

@@ -29,9 +29,11 @@
         <!-- ko template: getTemplate() --><!-- /ko -->
         <!--/ko-->
         <div class="payment-method-billing-address">
+			<!-- ko ifnot: getDisableShippingAddress() -->
             <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
             <!-- ko template: getTemplate() --><!-- /ko -->
             <!--/ko-->
+			<!--/ko-->
         </div>
         <form class="form form-purchase-order" id="form-sisowklarna" data-role="form-sisowklarna">	
             <fieldset class="fieldset payment method" data-bind='attr: {id: "payment_form_" + getCode()}'>

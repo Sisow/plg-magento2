@@ -23,9 +23,11 @@
         <!-- ko template: getTemplate() --><!-- /ko -->
         <!--/ko-->
         <div class="payment-method-billing-address">
-            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
-            <!-- ko template: getTemplate() --><!-- /ko -->
-            <!--/ko-->
+			<!-- ko if: getDisableShippingAddress() == false -->
+				<!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+					<!-- ko template: getTemplate() --><!-- /ko -->
+				<!-- /ko -->
+			<!-- /ko -->
         </div>
 		<!-- ko if: logoInCheckout() == false -->
 			<p>
@@ -44,7 +46,8 @@
 						</div>
 					</div>
 				<!--/ko-->
-			
+
+				<!-- ko if: needGenderDob() -->
                 <div class="field field-number required">
 					<label for="sisow_gender" class="label" style="float: left;">
                         <span>Geslacht</span>
@@ -148,6 +151,7 @@
                         </div>
                     </div>
 				</div>
+				<!--/ko-->
 				
 				<!-- ko if: isB2BPayment() -->
 					<div class="field required">

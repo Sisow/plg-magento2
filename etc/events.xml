@@ -6,4 +6,7 @@
 	<event name="sales_order_save_after">
         <observer name="sendEbillObserver" instance="Sisow\Payment\Observer\SendEbillObserver" />
     </event>
+    <event name="sales_order_save_after">
+        <observer name="makeInvoiceObserver" instance="Sisow\Payment\Observer\MakeInvoiceObserver" />
+    </event>
 </config>

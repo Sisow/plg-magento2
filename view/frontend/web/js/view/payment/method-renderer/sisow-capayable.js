@@ -68,6 +68,9 @@ define(
 			logoInCheckout: function(){
 				return configSisow.logoCheckout;
 			},
+			getDisableShippingAddress: function(){
+				return configSisow.disableshippingaddressCapayable;
+			},
 			offerB2b: function(){
 				return configSisow.b2b;
 			},
