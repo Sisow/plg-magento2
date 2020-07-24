@@ -547,7 +547,7 @@ class Start extends Action
     {
         if ($order->getSisowFee() > 0) {
             $this->arg['product_id_' . $i] = 'payfee';
-            $this->arg['product_description_' . $i] = 'Payment Fee';
+            $this->arg['product_description_' . $i] = __('Payment Fee')->__toString();
             $this->arg['product_quantity_' . $i] = 1;
             $this->arg['product_netprice_' . $i] = round($order->getSisowFee() * 100);
             $this->arg['product_total_' . $i] = round($order->getSisowFeeInclTax() * 100);
