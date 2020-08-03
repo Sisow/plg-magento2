@@ -51,7 +51,7 @@ class FeeTaxBefore extends \Sisow\Payment\Model\Total\Quote\Fee
         }
         $basePaymentFee = $this->getBaseFee($methodInstance, $quote);
 		
-        if ($basePaymentFee < 0.01) {
+        if ($basePaymentFee <= 0) {
             return $this;
         }
         $paymentFee = $this->priceCurrency->convert($basePaymentFee, ScopeInterface::SCOPE_STORE);

@@ -18,7 +18,9 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      * @param \Magento\Quote\Model\Quote\Address\Total $total
      * @return $this
      */
-    protected $scopeConfig = null; 
+    protected $scopeConfig = null;
+
+    protected $priceCurrency = null;
 
     public function __construct(
 		\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
@@ -51,11 +53,12 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         if (!$paymentMethod || strpos($paymentMethod, 'sisow_') !== 0) {
             return $this;
         }
+
         $methodInstance = $quote->getPayment()->getMethodInstance();
         if (!$methodInstance instanceof \Sisow\Payment\Model\Method\AbstractSisow) {
             return $this;
         }
-		
+
 		$baseFeeAmount = $this->getBaseFee($methodInstance, $quote);
 
         /* nodig voor 2.1.9 */
@@ -67,7 +70,7 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 		}
 		
 		$feeAmount = $this->priceCurrency->convert($baseFeeAmount, ScopeInterface::SCOPE_STORE);
-				
+
 		$quote->setSisowFee($feeAmount);
 		$quote->setBaseSisowFee($baseFeeAmount);
 
@@ -110,12 +113,17 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
     {
         return __('Payment Fee');
     }
-	
+
+    /**
+     * @param \Sisow\Payment\Model\Method\AbstractSisow $methodInstance
+     * @param \Magento\Quote\Model\Quote $quote
+     * @return float|int
+     */
 	public function getBaseFee(
         \Sisow\Payment\Model\Method\AbstractSisow $methodInstance,
         \Magento\Quote\Model\Quote $quote
     ) {
-		$baseFeeAmount = 0;
+		$baseFeeAmount = 0.00;
 		$feeSetting = $this->scopeConfig->getValue('payment/' . $quote->getPayment()->getMethod() . '/paymentfee', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 		
 		// get total inc tax

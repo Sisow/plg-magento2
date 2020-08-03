@@ -110,16 +110,16 @@ class Fee extends \Magento\Framework\View\Element\Template
 				
         $store = $this->getStore();
 		
-        $fee = new \Magento\Framework\DataObject(
+        $feeData = new \Magento\Framework\DataObject(
                 [
                     'code' => 'sisow_fee',
                     'strong' => false,
                     'value' => $fee,
-                    'label' => __('Payment Fee2'),
+                    'label' => __('Payment Fee'),
                 ]
             );
 
-		$parent->addTotal($fee, 'sisow_fee');
+		$parent->addTotal($feeData, 'sisow_fee');
 
 
 		return $this;

@@ -55,6 +55,9 @@ Below you will find a quickstart for the configuration, for a full description p
 8. Save the settings
 
 ## Changelog
+5.4.12
+- Fix: Merged events
+
 5.4.11
 - Added: Setting to create invoice on order state (AfterPay and Klarna). 
 - Added: Setting for Billink B2B to no longer require Gender and birthdate.
