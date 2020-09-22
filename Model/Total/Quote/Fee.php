@@ -20,8 +20,6 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      */
     protected $scopeConfig = null;
 
-    protected $priceCurrency = null;
-
     public function __construct(
 		\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
 		\Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency

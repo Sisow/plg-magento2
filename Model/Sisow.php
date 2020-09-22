@@ -409,13 +409,11 @@ class Sisow
 		$pars = array();
 		$pars["merchantid"] = $this->merchantId;
 		$pars["trxid"] = $trxid;
-		
+
+		$pars["sha1"] = sha1($trxid . $this->merchantId . $this->merchantKey);
 		if($this->amount > 0){
 			$pars["amount"] = round($this->amount * 100);
-			$pars["sha1"] = sha1($trxid . $pars["amount"] . $this->merchantId . $this->merchantKey);
 		}
-		else
-			$pars["sha1"] = sha1($trxid . $this->merchantId . $this->merchantKey);
 		
 		if ($keyvalue) {
 			foreach ($keyvalue as $k => $v) {
