@@ -55,6 +55,10 @@ Below you will find a quickstart for the configuration, for a full description p
 8. Save the settings
 
 ## Changelog
+5.4.13
+- Fix: Credit invoice
+- Fix: Admin create order not loading
+
 5.4.12
 - Fix: Merged events
 
