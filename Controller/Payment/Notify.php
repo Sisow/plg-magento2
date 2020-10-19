@@ -184,7 +184,19 @@ class Notify  extends Action
 				$payment = $order->getPayment();
 				$payment->setTransactionId($trxid);
 				$payment->setCurrencyCode($order->getOrderCurrencyCode());
-				$payment->setPreparedMessage('Order status from Sisow: ' . $this->sisow->status);
+
+                $info = "";
+                if ($this->sisow->consumerName)
+                    $info .= PHP_EOL.'<br>Name: <strong>'.$this->sisow->consumerName.'</strong>';
+                if ($this->sisow->consumerIban)
+                    $info .= PHP_EOL.'<br>IBAN: <strong>'.$this->sisow->consumerIban.'</strong>';
+                if ($this->sisow->consumerBic)
+                    $info .= PHP_EOL.'<br>BIC: <strong>'.$this->sisow->consumerBic.'</strong>';
+                if ($this->sisow->consumerName || $this->sisow->consumerIban || $this->sisow->consumerBic) {
+                    $info.=PHP_EOL.'<br>';
+                }
+
+				$payment->setPreparedMessage('Order status from Sisow: ' . $this->sisow->status. $info);
 				$payment->setIsTransactionClosed(1);
 				$payment->registerCaptureNotification($amount, true);
 				

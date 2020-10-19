@@ -1,4 +1,7 @@
 ## Changelog
+5.4.14
+- Added: Name/IBAN to order notification history message.
+
 5.4.13
 - Fix: Credit invoice
 - Fix: Admin create order not loading

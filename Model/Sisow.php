@@ -30,6 +30,8 @@ class Sisow
 	public $status;
 	public $timeStamp;
 	public $consumerAccount;
+	public $consumerBic;
+	public $consumerIban;
 	public $consumerName;
 	public $consumerCity;
 	
@@ -340,6 +342,8 @@ class Sisow
 		$this->timeStamp = $this->parse("timestamp");
 		$this->amount = $this->parse("amount") / 100.0;
 		$this->consumerAccount = $this->parse("consumeraccount");
+		$this->consumerBic = $this->parse("consumerbic");
+		$this->consumerIban = $this->parse("consumeriban");
 		$this->consumerName = $this->parse("consumername");
 		$this->consumerCity = $this->parse("consumercity");
 		$this->purchaseId = $this->parse("purchaseid");
