@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright � 2016 Sisow
+ * Copyright 2016 Sisow
  * created by Sisow(support@sisow.nl)
  */
 namespace Sisow\Payment\Controller\Payment;
@@ -80,7 +80,7 @@ class Notify  extends Action
 	
     public function execute()
     {
-		$orderId = $this->getRequest()->getParam('ec');
+        $orderId = $this->getRequest()->getParam('ec');
 		$status = $this->getRequest()->getParam('status');
 		$trxid = $this->getRequest()->getParam('trxid');
 		$sha = $this->getRequest()->getParam('sha1');
