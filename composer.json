@@ -2,12 +2,13 @@
     "name": "sisow/plg-magento2",
     "description": "Accepting payments with Sisow",
     "require": {
+        "composer-plugin-api": "^1.0 |  ^2.0",
         "magento/module-sales": ">=100.0",
         "magento/module-payment": ">=100.0",
         "magento/module-quote": ">=100.0"
     },
     "type": "magento2-module",
-	"version": "5.4.15",
+	"version": "5.4.16",
     "license": [
         "OSL-3.0",
         "AFL-3.0"

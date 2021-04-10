@@ -9,6 +9,7 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Model\Order;
@@ -41,6 +42,11 @@ class Notify  extends Action
     private $orderRepository;
 
     /**
+     * @var ManagerInterface
+     */
+    private $eventManager;
+
+    /**
      * @var Sisow
      */
     private $sisow;
@@ -66,7 +72,8 @@ class Notify  extends Action
                                 ScopeConfigInterface $scopeConfig,
                                 OrderRepository $orderRepository,
                                 Sisow $sisow,
-                                SearchCriteriaBuilder $searchCriteriaBuilder
+                                SearchCriteriaBuilder $searchCriteriaBuilder,
+                                ManagerInterface $eventManager
                                 )
     {
         parent::__construct($context);
@@ -76,6 +83,7 @@ class Notify  extends Action
 		$this->orderRepository = $orderRepository;
 		$this->sisow = $sisow;
 		$this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->eventManager = $eventManager;
     }
 	
     public function execute()
@@ -172,8 +180,11 @@ class Notify  extends Action
 			case "Paid":
 			case "Success":
 			    $orderstate = $order->getState();
-			    if (Order::STATE_PROCESSING == $orderstate || Order::STATE_COMPLETE == $orderstate)
+			    if (Order::STATE_PROCESSING == $orderstate || Order::STATE_COMPLETE == $orderstate) {
                     exit('Order already processed!');
+                } else if ($order->isCanceled()) {
+			        $this->resetOrder($order);
+                }
 
 				$amount = $this->sisow->amount;
 				
@@ -250,4 +261,46 @@ class Notify  extends Action
 		
 		exit('Notify OK!');
 	}
+
+	private function resetOrder($order) {
+        $order->setState(Order::STATE_NEW);
+        $order->addStatusToHistory(
+            Order::STATE_NEW,
+            __('Order reset by Sisow notify'),
+            true
+        );
+
+        $order->setSubtotalCanceled(0);
+        $order->setBaseSubtotalCanceled(0);
+
+        $order->setTaxCanceled(0);
+        $order->setBaseTaxCanceled(0);
+
+        $order->setShippingCanceled(0);
+        $order->setBaseShippingCanceled(0);
+
+        $order->setDiscountCanceled(0);
+        $order->setBaseDiscountCanceled(0);
+
+        $order->setTotalCanceled(0);
+        $order->setBaseTotalCanceled(0);
+
+        /** @var OrderItemInterface $item */
+        foreach ($order->getAllItems() as $item) {
+            $item->setQtyCanceled(0);
+            $item->setTaxCanceled(0);
+            $item->setDiscountTaxCompensationCanceled(0);
+
+            $this->eventManager->dispatch('sales_order_item_uncancel', ['item' => $item]);
+
+            /** @var OrderItemInterface $child */
+            foreach ($item->getChildrenItems() as $child) {
+                $child->setQtyCanceled(0);
+                $child->setTaxCanceled(0);
+                $child->setDiscountTaxCompensationCanceled(0);
+
+                $this->eventManager->dispatch('sales_order_item_uncancel', ['item' => $child]);
+            }
+        }
+    }
 }
