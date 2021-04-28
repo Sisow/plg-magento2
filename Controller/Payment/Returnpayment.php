@@ -43,7 +43,11 @@ class Returnpayment extends Action
             $resultRedirect->setPath('checkout/onepage/success');
         } else {
             $this->_getCheckoutSession()->restoreQuote();
-            $this->messageManager->addNotice(__('Payment not completed'));
+            if ($status == 'Open') {
+                $this->messageManager->addNotice(__('Payment is processing'));
+            } else {
+                $this->messageManager->addNotice(__('Payment not completed'));
+            }
             $resultRedirect->setPath('checkout/cart');
         }
         return $resultRedirect;
