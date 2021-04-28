@@ -38,16 +38,12 @@ class Returnpayment extends Action
 
         $resultRedirect = $this->resultRedirectFactory->create();
 
-        if ($status == 'Success' || $status == 'Reservation') {
+        if ($status == 'Success' || $status == 'Reservation' || $status == 'Open') {
             $this->_checkoutSession->start();
             $resultRedirect->setPath('checkout/onepage/success');
         } else {
             $this->_getCheckoutSession()->restoreQuote();
-            if ($status == 'Open') {
-                $this->messageManager->addNotice(__('Payment is processing'));
-            } else {
-                $this->messageManager->addNotice(__('Payment not completed'));
-            }
+            $this->messageManager->addNotice(__('Payment not completed'));
             $resultRedirect->setPath('checkout/cart');
         }
         return $resultRedirect;
