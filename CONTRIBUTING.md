@@ -6,7 +6,7 @@
 
 ### Making changes:
 - Create a branch from the develop branch.
-- Name of the branch shoul be something like: `feature/GITHUB-ISSUE-ID-slug` (eg: `feature/50-configprovider-update`)
+- Name of the branch should be something like: `feature/GITHUB-ISSUE-ID-slug` (eg: `feature/50-configprovider-update`)
 - Your code changes should follow the [Magento2 coding standard](https://github.com/magento/magento-coding-standard).
 - Including unit tests is encouraged.
 
