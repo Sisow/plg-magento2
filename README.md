@@ -3,13 +3,13 @@
 </p>
 
 # Buckaroo Magento 2 Payments Plugin (former Sisow)
+> :warning: **PLEASE NOTE**: This plugin will not get new functionality updates.<br>We therefore highly recommend to use [Buckaroo's main Magento 2 plugin](https://github.com/buckaroo-it/Magento2).
 
 ### Index
 - [About](#about)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Contribute](#contribute)
-- [Versioning](#versioning)
 - [Additional information](#additional-information)
 ---
 
@@ -55,16 +55,6 @@ Below you will find a quickstart for the configuration, for a full description p
 ### Contribute
 We really appreciate it when developers contribute to improve the Buckaroo plugins.
 If you want to contribute as well, then please follow our [Contribution Guidelines](CONTRIBUTING.md).
-
-### Versioning 
-<p align="left">
-  <img src="https://www.buckaroo.nl/media/3480/magento_versioning.png" width="500px" position="center">
-</p>
-
-- **MAJOR:** Breaking changes that require additional testing/caution.
-- **MINOR:** Changes that should not have a big impact.
-- **PATCHES:** Bug and hotfixes only.
-
 
 ### Additional information
 - **Support:** https://support.buckaroo.eu/contact
