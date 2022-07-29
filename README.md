@@ -3,20 +3,20 @@
 </p>
 
 # Buckaroo Magento 2 Payments Plugin (former Sisow)
+> :warning: **PLEASE NOTE**: This plugin will not get new functionality updates.<br>We therefore highly recommend to use [Buckaroo's primary Magento 2 plugin](https://github.com/buckaroo-it/Magento2).
 
 ### Index
 - [About](#about)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Contribute](#contribute)
-- [Versioning](#versioning)
 - [Additional information](#additional-information)
 ---
 
 ### About
 Magento is an e-commerce platform owned by Adobe. There are two versions: Magento Open Source, the free, open source version written in PHP, and Magento Commerce, the paid cloud version. More than 250,000 merchants around the world use the Magento platform.
 
-**Please note:** Buckaroo took over Sisow in 2021 and thereby also all of their plugins. This Magento 2 plugin is the former Sisow version and it contains a ready-to-sell payment gateway for Buckaroo. However new functionalities will only be added in [Buckaroo's main Magento 2 plugin](https://github.com/buckaroo-it/Magento2) and not in this specific plugin.
+**Please note:** Buckaroo took over Sisow in 2021 and thereby also all of their plugins. This Magento 2 plugin is the former Sisow version and it contains a ready-to-sell payment gateway for Buckaroo. However new functionalities will only be added in [Buckaroo's primary Magento 2 plugin](https://github.com/buckaroo-it/Magento2) and not in this specific plugin.
 
 For more information about the former Sisow plugin and the migration, please visit:
 https://www.buckaroo.nl/sisow
@@ -55,16 +55,6 @@ Below you will find a quickstart for the configuration, for a full description p
 ### Contribute
 We really appreciate it when developers contribute to improve the Buckaroo plugins.
 If you want to contribute as well, then please follow our [Contribution Guidelines](CONTRIBUTING.md).
-
-### Versioning 
-<p align="left">
-  <img src="https://www.buckaroo.nl/media/3480/magento_versioning.png" width="500px" position="center">
-</p>
-
-- **MAJOR:** Breaking changes that require additional testing/caution.
-- **MINOR:** Changes that should not have a big impact.
-- **PATCHES:** Bug and hotfixes only.
-
 
 ### Additional information
 - **Support:** https://support.buckaroo.eu/contact
