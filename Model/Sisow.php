@@ -69,13 +69,16 @@ class Sisow
     private $_scopeConfig;
 
 	public function __construct(\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-	\Sisow\Payment\Logger\SisowLogger $logger) {
+	\Sisow\Payment\Logger\SisowLogger $logger,
+	\Magento\Framework\App\ProductMetadataInterface $productMetadata
+	) {
 		$this->merchantId = $scopeConfig->getValue('sisow/general/merchantid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 		$this->merchantKey = $scopeConfig->getValue('sisow/general/merchantkey', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 		$this->shopId = $scopeConfig->getValue('sisow/general/shopid', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
 		$this->_logger = $logger;
 		$this->_scopeConfig = $scopeConfig;
+		$this->productMetadata = $productMetadata;
 	}
 
 	public function loadMerchantByStoreId($storeId){
@@ -114,6 +117,13 @@ class Sisow
 		if($loggingEnabled) {
             $this->_logger->addInfo($url . '?' . $postData);
         }
+
+		//Software Headers
+		$keyvalue['PlatformName'] = 'Magento 2';
+		$keyvalue['PlatformVersion'] = $this->productMetadata->getVersion();
+		$keyvalue['ModuleSupplier'] = 'Buckaroo B.V.';
+		$keyvalue['ModuleName'] = 'Buckaroo (former Sisow) Magento2';
+		$keyvalue['ModuleVersion'] = '5.5.2';
 
 		$options = array(
 			CURLOPT_POST => 1,
