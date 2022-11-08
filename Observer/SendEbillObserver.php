@@ -82,7 +82,7 @@ class SendEbillObserver implements ObserverInterface
 		else{
 			$order->getPayment()->setAdditionalInformation('trxId', $this->_sisow->trxId)->save();
 			
-			$this->_messageManager->addSuccess(__("Sisow %1 created!", $method->getTitle()));
+			$this->_messageManager->addSuccess(__("Buckaroo %1 created!", $method->getTitle()));
 		}
 		return $this;
 	}

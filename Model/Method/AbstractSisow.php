@@ -151,7 +151,7 @@ class AbstractSisow extends \Magento\Payment\Model\Method\AbstractMethod
 			$payment->setTransactionId($trxid)
                 ->setAdditionalInformation('sisowmakeinvoicesuccess', true)
                 ->setCurrencyCode($order->getBaseCurrencyCode())
-                ->setPreparedMessage('Sisow status Success')
+                ->setPreparedMessage('Buckaroo status Success')
                 ->setIsTransactionClosed(1)
                 ->registerCaptureNotification($order->getBaseGrandTotal());
 		}

@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2016 Sisow
- * created by Sisow(support@sisow.nl)
+ * Copyright 2022 Buckaroo
+ * created by Buckaroo(support@buckaroo.nl)
  */
 namespace Sisow\Payment\Controller\Payment;
 use Exception;

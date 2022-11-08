@@ -1,6 +1,6 @@
 {
     "name": "sisow/plg-magento2",
-    "description": "Accepting payments with Sisow",
+    "description": "Accepting payments with Buckaroo",
     "require": {
         "magento/framework": ">=101.0.0",
         "php": ">=7.0"
