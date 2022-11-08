@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright Sisow 2016
- * created by Sisow(support@sisow.nl)
+ * Copyright Buckaroo 2022
+ * created by Buckaroo(support@buckaroo.nl)
  */
 namespace Sisow\Payment\Controller\Payment;
 use Magento\Framework\Controller\ResultFactory;

@@ -2,14 +2,14 @@
     <system>
         <section id="payment">
             <group id="sisow_payment" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
-				<label>Sisow</label>
+				<label>Buckaroo Payments (former Sisow)</label>
 				<field id="merchantid" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Merchant ID</label>
+					<label>Website Key</label>
 					<validate>required-entry</validate>
 					<config_path>sisow/general/merchantid</config_path>
 				</field>
 				<field id="merchantkey" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Merchant Key</label>
+					<label>Secret Key</label>
 					<validate>required-entry</validate>
 					<config_path>sisow/general/merchantkey</config_path>
 				</field>
